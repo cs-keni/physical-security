@@ -106,5 +106,5 @@ the latter as a guard against ever committing real project data.
 
 | Commit | Scope |
 |---|---|
-| `INITIAL_HASH` | Initial import: structure, governance, Module 01, calculators, data model, Project 1, capstone brief |
-| `LOG_HASH` | Record commit hashes in the engineering log |
+| `667c2d1` | Initial import: structure, governance, Module 01, calculators, data model, Project 1, capstone brief |
+| _(this commit)_ | Record commit hashes in the engineering log. A commit cannot contain its own hash; use `git log` for the exact value. |
