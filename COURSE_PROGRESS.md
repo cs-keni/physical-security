@@ -4,7 +4,7 @@
 This file is the source of truth for what has been *generated*. It is not a study tracker —
 that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
-**Last updated:** 2026-08-08 (Session 4)
+**Last updated:** 2026-08-08 (Session 5)
 
 ---
 
@@ -56,7 +56,7 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 | # | Module | Status | What exists | What's missing |
 |---|---|---|---|---|
-| 01 | Foundations | ✅ | Overview + 7 full lessons (~28k words): what PSE is, risk vocabulary, D3ACR + timely detection, defense in depth/zones, CPTED, requirements engineering, systems & failure thinking. Exercises embedded in each lesson. | 4 `_solutions/` files for the embedded exercises; `vocabulary.md`; `checklist_foundations.md` |
+| 01 | Foundations | ✅ | Overview + 7 full lessons (~28k words): what PSE is, risk vocabulary, D3ACR + timely detection, defense in depth/zones, CPTED, requirements engineering, systems & failure thinking. Exercises embedded in each lesson, with `_solutions/` for all 6 sets. Plus `vocabulary.md` (full glossary + disambiguation drill), `checklist_foundations.md` (the reasoning checklist), and `exercises.md` — index plus the **Ashford Public Library capstone**, one site through all 7 lessons, with a reference solution. ~37k words added in Session 5. | — |
 | 02 | Risk Assessment | ⬜ | — | 7 lessons: methodology, asset characterization, threat/DBT, VA & site surveys, risk methods, adversary path analysis, master planning |
 | 03 | Video Surveillance | ⬜ | — | 11 lessons. **Highest priority.** Optics math is already implemented in `psec.optics` — the lessons must derive it |
 | 04 | Access Control | ⬜ | — | 11 lessons. SOO writing is partially demonstrated in the Project 1 reference solution |
@@ -111,6 +111,8 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | `35_Doors_and_Hardware/` internal links | 21 files link-checked; all relative targets resolve |
 | `32_Engineering_Math/` internal links | 19 files link-checked; all relative targets resolve |
 | `32_Engineering_Math/` worked values | Every number reproduced by running `psec` directly; capstone model in the reference solution |
+| `01_Foundations/` internal links | 13 files link-checked; all relative targets resolve |
+| `01_Foundations/` capstone values | Adversary-path arithmetic reproduced with `psec.pps` (6 variants) |
 
 ---
 
@@ -129,9 +131,10 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 1. **ASIS certification data is unverified.** Highest-priority correction. Requires a human to
    download the handbook.
-2. **Module 01 exercise solutions are not written.** The lessons reference
-   `01_Foundations/_solutions/*.md` (4 files). Retrieval checks and the quiz are covered; the
-   embedded E-numbered exercises are not.
+2. ~~**Module 01 exercise solutions are not written.**~~ **Resolved (Session 5).** All 6
+   solution files written, plus `vocabulary.md`, `checklist_foundations.md`, and `exercises.md`
+   with a module capstone. **The repo now has zero dangling solution links.** Note the original
+   count of 4 was wrong — lessons 02–07 each carry an exercise set, so there were 6.
 3. ~~**`32_Engineering_Math/` lags `28_Calculators/`.**~~ **Resolved (Session 4).** Module 32 is
    complete: 8 lessons, all solutions, the integrated sizing capstone, quiz, and flashcards.
    `28_Calculators/` now has a full derivation record.
@@ -140,12 +143,13 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 5. ~~**`35_Doors_and_Hardware/` is referenced by Project 1 and the roadmap month 1 but not
    written.**~~ **Resolved (Sessions 2–3).** Module 35 is complete: 8 lessons, all solutions,
    capstone survey, quiz, and flashcards. Roadmap months 1, 4, and 8 are unblocked.
-6. **Modules 32 and 35 are the only modules with no solution debt.** Module 01 still has 4
-   dangling `_solutions/` links (issue 2 above), and `01_Foundations/03_functional_chain.md`
-   still links to `28_Calculators/timely_detection.py`, which was superseded by `psec/pps.py`.
-   The convention adopted in module 35 — write solutions in the same commit as the lessons —
-   held for module 32 and should be applied when Module 01's gap is closed and to every module
-   from here.
+6. ~~**Modules 32 and 35 are the only modules with no solution debt.**~~ **Resolved (Session 5).**
+   Modules 01, 32, and 35 are all clean. The stale
+   `01_Foundations/03_functional_chain.md` → `28_Calculators/timely_detection.py` link was also
+   fixed; it now points at `psec/pps.py` and the module 32 derivation. **The only remaining
+   broken link repo-wide is `30_Capstones/data_center_campus/` → `_reference_solution/`**, which
+   is issue 4. The convention — write solutions in the same commit as the lessons that link to
+   them — now holds for every written module and must hold for every module from here.
 7. **Two defects in `psec` were found by hand-checking units while writing Module 32, and both
    are fixed.** (a) `video.stream_gb_per_day(decimal_gb=False)` divided decimal megabytes by
    1024 instead of 2³⁰/10⁶, halving the reported decimal/binary gap — the exact error its own
@@ -161,24 +165,23 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 **In priority order** — each is sized to be completable and useful on its own:
 
-1. **`01_Foundations/_solutions/`** — the 4 missing exercise solution files, plus
-   `vocabulary.md` and `checklist_foundations.md`. This is the repo's oldest open debt and it is
-   small; closing it makes "every lesson's solutions exist" true repo-wide.
-2. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
+1. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
    3–4 depend on it. **Module 32 lessons 01–04 now supply all of its math**, so these lessons
    can cover the imaging chain, selection, and design judgment without re-deriving anything.
-3. **`04_Access_Control/` lessons 01–11.** Module 35 lessons 03, 04, and 06 hand off to this
+2. **`04_Access_Control/` lessons 01–11.** Module 35 lessons 03, 04, and 06 hand off to this
    one directly — offline controller behavior, REX strategy, and reader-in/reader-out are all
    raised there and resolved here.
-4. **`02_Risk_Assessment/` lessons 01–07.** Module 32 lesson 08 derives the path
+3. **`02_Risk_Assessment/` lessons 01–07.** Module 32 lesson 08 derives the path
    arithmetic; this module supplies the method for finding the paths worth analysing.
-5. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
+4. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
+5. **`30_Capstones/data_center_campus/_reference_solution/`** — the last dangling link in the
+   repo, and the only remaining solution debt.
 
 **Authoring reminder:** before marking any module complete here, open it and confirm it
 contains actual instructional material — worked examples, real numbers, exercises with
 solutions — not headings.
 
-**Modules 32 and 35 are the current quality bar for a complete module:** overview, 8 lessons,
+**Modules 01, 32, and 35 are the current quality bar for a complete module:** overview, lessons,
 solutions for every lesson, a capstone exercise with a reference solution, a quiz with an
 isolated key, and a validated flashcard deck. Match that shape.
 
