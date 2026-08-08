@@ -64,16 +64,22 @@ Ordering principle: **build what unblocks the learner's next month first.** A pe
 
 ---
 
-## Phase 5 — Unblock month 1 ⬜ NEXT
+## Phase 5 — Unblock month 1 🟡 IN PROGRESS
 
-- [ ] `35_Doors_and_Hardware/` 01 — Door anatomy and terminology
-- [ ] 02 — Handing, swing, secure side
-- [ ] 03 — Locking hardware families
-- [ ] 04 — Fail safe vs fail secure
-- [ ] 05 — Egress, delayed egress, controlled egress `[CODE][VERIFY]`
+Lessons 01–05 shipped at full depth (Session 2). Project 1 and roadmap month 1 week 3 are
+unblocked. Remaining: 06–08 and the module's assessment material.
+
+- [x] `35_Doors_and_Hardware/` module overview
+- [x] 01 — Door anatomy and terminology
+- [x] 02 — Handing, swing, secure side
+- [x] 03 — Locking hardware families
+- [x] 04 — Fail safe vs fail secure
+- [x] 05 — Egress, delayed egress, controlled egress `[CODE][VERIFY]`
+- [x] `_solutions/` for lessons 01–05 (written alongside the lessons, so this module does not
+      repeat the Module 01 dangling-solutions debt)
 - [ ] 06 — Electrified hardware and power transfer
 - [ ] 07 — Fire-rated openings
-- [ ] Key management and mechanical security (gap-analysis addition)
+- [ ] 08 — Key management and mechanical security (gap-analysis addition)
 - [ ] Field exercise: photograph and annotate 10 real doors
 - [ ] Quiz + flashcards
 

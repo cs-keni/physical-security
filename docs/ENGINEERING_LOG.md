@@ -125,4 +125,91 @@ and a gstack skill-routing section.
 
 No content or code changed. Test suite untouched and still the authority on the calculators.
 
-**Commit:** see `git log` — this entry ships in the same commit as the file it describes.
+**Commit:** `6eddde9`
+
+---
+
+## 2026-08-07 — Session 2: Module 35 Doors and Hardware, lessons 01–05
+
+Branch `module/35-doors-hardware`. Scope was deliberately set to lessons 01–05 at full depth
+rather than all eight lessons thinned — detail prioritized over coverage, at Kenny's direction.
+
+### What shipped
+
+| File | Words | Content |
+|---|---|---|
+| `00_MODULE_OVERVIEW.md` | 923 | Objectives, study guidance, five load-bearing ideas, cross-references, provisional cert mapping |
+| `01_door_anatomy.md` | 3,797 | The opening as the unit of design; frame, leaf, hinges, latching, closers, coordinators; reading a door schedule and hardware set |
+| `02_handing_and_swing.md` | 2,935 | Four hands, the field procedure, handing vs. swing vs. secure side, device placement by side |
+| `03_locking_hardware_families.md` | 4,346 | Five electrified families, selection framework, door position vs. latch position, worked power calculations |
+| `04_fail_safe_vs_fail_secure.md` | 3,180 | Precise definitions, the five failure modes, hardwired FA release, decision tree |
+| `05_egress.md` | 3,920 | Free egress, means of egress, five special locking arrangements, the "lock the exit" conversation |
+| `_solutions/*.md` (5 files) | 10,444 | Worked senior-level answers for every E-numbered exercise |
+
+**29,545 words total.** Comparable to Module 01's ~28k across 7 lessons, so the depth bar held.
+
+### Decisions made
+
+- **`_solutions/` written in the same commit as the lessons.** Module 01 shipped lessons whose
+  exercise links dangle and that debt is still open (known issue #5). Repeating it would have
+  been a smell. Recorded in `HANDOFF.md` as a convention for all future modules.
+- **Key management placed in module 35 as lesson 08** rather than standing alone. A junior meets
+  keying at the same door they meet the strike. Kenny's call.
+- **Numeric examples computed with `psec.power`, not written by hand.** Lesson 03's power supply
+  sizing, battery sizing, and voltage-drop tables — and E3.2's solution — were produced by
+  running the calculator and transcribing the output. The numbers are reproducible, and a
+  formula change will surface as a mismatch rather than silently stale prose. This is the
+  inverse of the `32_Engineering_Math/` plan (derive *from* the tests) and the same principle.
+- **Lesson 05 written as a map of a body of code, not a set of facts.** Every numeric and
+  prescriptive claim carries `[CODE][VERIFY]`, the lesson opens with a standing warning, and the
+  15/30-second delayed egress figures are presented as "commonly cited, confirm against the
+  adopted text" rather than asserted. Hard rule 1 in `AI_CONTEXT.md` is doing real work here:
+  the honest failure mode for this lesson is a learner quoting a number to a client.
+- **Defensive depth only.** Attack classes are named (latch slipping, hinge pin removal, ceiling
+  bypass) and immediately answered with the countermeasure (deadlatch, NRP hinges, deck-to-deck
+  partition). No procedures.
+- **No placeholder files for 06–08.** Empty positions in the module, rows in `COURSE_PROGRESS.md`,
+  and explicit "not yet written" notes at the two places lessons forward-reference them.
+
+### Teaching content worth flagging as load-bearing
+
+Two corrections that change how a junior designs, both of which the lessons make explicit:
+
+1. **Fail secure does not trap anyone.** Egress at an electrified lockset or exit device is a
+   mechanical linkage. Juniors who believe otherwise specify fail safe everywhere and build a
+   building that unlocks itself on power loss. Lesson 04 leads with this.
+2. **Free egress is one-directional.** You may always secure the outside. Lesson 05 uses this to
+   resolve most "lock the exit" client requests, which is the practical payoff of the whole
+   lesson.
+
+### Verification
+
+```
+python3 28_Calculators/tests/test_psec.py                → Ran 66 tests, OK
+python3 28_Calculators/demo.py                           → clean
+python3 16_Automation/data_model/validate.py <sample> CD → 25 errors / 5 warnings / 4 info
+                                                           (unchanged baseline)
+26_Flashcards/01_foundations.csv                         → 58 cards
+```
+
+No code changed this session, so the suite is a regression check rather than a validation of new
+work. The `psec.power` outputs quoted in lesson 03 were captured from live runs of
+`power_supply_sizing`, `battery_ah_required`, `voltage_drop_v`, `voltage_at_load_v`, and
+`smallest_awg_for_run`.
+
+### Docs updated
+
+`COURSE_PROGRESS.md` (module 35 row → 🟡, known issues 5–7 rewritten, next work item),
+`PHASES.md` (Phase 5 → 🟡, 01–05 checked, 08 added as an explicit item),
+`docs/CURRENT_TASK.md`, `docs/HANDOFF.md` (state, two new architectural decisions, debts
+renumbered, next work item).
+
+### Follow-ups created
+
+- Lessons 06–08 are the next binding constraint: lesson 03 forward-references power transfer to
+  06 three times and lesson 05's "Next" link points at 06.
+- Module 35 has no quiz and no flashcards. Module 01 has both.
+- `00_MODULE_OVERVIEW.md` carries a provisional APP/PSP mapping that must be corrected when the
+  ASIS handbook block is cleared.
+
+**Commit:** see `git log` — this entry ships in the same commit as the content it describes.
