@@ -117,6 +117,25 @@ class TestVideo(unittest.TestCase):
         self.assertLess(video.stream_gb_per_day(4.0, decimal_gb=False),
                         video.stream_gb_per_day(4.0, decimal_gb=True))
 
+    def test_binary_units_are_true_gibibytes(self):
+        # A bitrate is decimal, so the intermediate megabytes are 10^6 bytes.
+        # 4 Mbps * 3600 * 24 / 8 = 43 200 MB = 4.32e10 bytes.
+        # GiB = 4.32e10 / 2^30 = 40.2331 GiB.
+        # Dividing 43 200 by 1024 instead gives 42.1875, which is 4.86% high and
+        # is neither GB nor GiB. See 32_Engineering_Math/04_storage.md.
+        self.assertAlmostEqual(video.stream_gb_per_day(4.0, decimal_gb=False),
+                               40.2331, places=3)
+
+    def test_decimal_binary_gap_at_tb_scale_is_about_ten_percent(self):
+        # 1 TB = 10^12 bytes, 1 TiB = 2^40 bytes; the ratio is 2^40/10^12
+        # = 1.099511627776. This is the "classic ~10% error" the module warns
+        # about, and the binary path must actually reproduce it.
+        dec = video.stream_tb_for_retention(4.0, 30, decimal_tb=True)
+        binr = video.stream_tb_for_retention(4.0, 30, decimal_tb=False)
+        self.assertAlmostEqual(dec, 1.296, places=6)
+        self.assertAlmostEqual(binr, 1.178705, places=5)
+        self.assertAlmostEqual(dec / binr, 2 ** 40 / 1e12, places=9)
+
     def test_tb_for_retention(self):
         # 43.2 GB/day * 30 = 1296 GB = 1.296 TB
         self.assertAlmostEqual(video.stream_tb_for_retention(4.0, 30), 1.296, places=6)

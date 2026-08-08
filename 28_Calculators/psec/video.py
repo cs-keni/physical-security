@@ -31,6 +31,21 @@ BITS_PER_BYTE = 8
 SECONDS_PER_HOUR = 3600
 HOURS_PER_DAY = 24
 
+# Decimal (SI) vs binary (IEC) conversion.
+#
+# A bitrate is decimal, so the "megabytes" that fall out of a bitrate
+# calculation are 10^6 bytes each. Converting THOSE to gibibytes is a division
+# by 2^30 / 10^6 = 1073.741824 -- NOT by 1024.
+#
+# Dividing decimal megabytes by 1024 is a common and subtle error: it produces a
+# number that is neither GB nor GiB, and it understates the decimal/binary gap
+# at the TB scale as ~4.9% instead of the true ~9.95%. Derivation and the
+# corrected worked values are in ../../32_Engineering_Math/04_storage.md.
+MB_TO_GB_DECIMAL = 1000.0            # 10^6 bytes -> 10^9 bytes
+MB_TO_GIB_BINARY = 2 ** 30 / 1e6     # 10^6 bytes -> 2^30 bytes = 1073.741824
+GB_TO_TB_DECIMAL = 1000.0            # 10^9 bytes -> 10^12 bytes
+GIB_TO_TIB_BINARY = 1024.0           # 2^30 bytes -> 2^40 bytes
+
 DEFAULT_HEADROOM = 0.20  # 20% -- covers estimate error, growth, and filesystem overhead
 
 # Rough per-stream bitrate references in Mbps for H.264, moderate motion,
@@ -92,22 +107,29 @@ def stream_gb_per_day(bitrate_mbps: float, hours_per_day: float = 24.0,
 
         GB/day = Mbps * 3600 * hours / 8 / 1000   (decimal GB)
 
-    ``decimal_gb=False`` returns GiB (÷1024), which is what an OS will show you.
+    ``decimal_gb=False`` returns true GiB -- the intermediate megabytes are
+    decimal (10^6 bytes), so the conversion divides by 2^30/10^6, not by 1024.
+    GiB is what an operating system will report.
     """
     _positive("bitrate_mbps", bitrate_mbps)
     _nonneg("hours_per_day", hours_per_day)
     megabits = bitrate_mbps * SECONDS_PER_HOUR * hours_per_day
     megabytes = megabits / BITS_PER_BYTE
-    return megabytes / (1000 if decimal_gb else 1024)
+    return megabytes / (MB_TO_GB_DECIMAL if decimal_gb else MB_TO_GIB_BINARY)
 
 
 def stream_tb_for_retention(bitrate_mbps: float, retention_days: float,
                             hours_per_day: float = 24.0,
                             *, decimal_tb: bool = True) -> float:
-    """Storage for one stream held for ``retention_days``."""
+    """Storage for one stream held for ``retention_days``.
+
+    ``decimal_tb=False`` returns TiB. Note the two conversion steps use
+    different divisors: decimal MB -> GiB is 2^30/10^6, but GiB -> TiB is a
+    clean 1024, because both are already binary.
+    """
     _positive("retention_days", retention_days)
     per_day = stream_gb_per_day(bitrate_mbps, hours_per_day, decimal_gb=decimal_tb)
-    return per_day * retention_days / (1000 if decimal_tb else 1024)
+    return per_day * retention_days / (GB_TO_TB_DECIMAL if decimal_tb else GIB_TO_TIB_BINARY)
 
 
 # ---------------------------------------------------------------------------
