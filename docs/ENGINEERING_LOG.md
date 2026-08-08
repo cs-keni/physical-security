@@ -313,4 +313,10 @@ renumbered, link-check procedure, next work item).
   repo-wide.
 - Two provisional APP/PSP mapping tables now need correcting when the ASIS block clears.
 
-**Commit:** see `git log` — this entry ships in the same commit as the content it describes.
+### Commit record
+
+| Commit | Scope |
+|---|---|
+| `fe34d21` | Record Session 2 commit hashes in engineering log |
+| `e3c2aca` | Module 35 lessons 06–08, capstone survey, quiz + key, flashcards, doc updates |
+| `f422074` | Merge `module/35-doors-hardware-part2` to `main` |
