@@ -1,45 +1,52 @@
 # CURRENT_TASK
 
-**Status:** Session 1 complete. No task in progress.
+**Status:** Session 2 complete. No task in progress.
 
-## Just completed (2026-08-06)
+## Just completed (2026-08-07)
 
-Initial build of the Physical Security Engineering Academy:
-- Research: Bluebeam Revu 21 Complete feature set verified; ASIS certification data
-  **blocked at source and documented as unverified rather than guessed**
-- 39-directory structure, governance docs, 12-month roadmap, skills matrix, gap analysis
-  (22 topics added to the requested curriculum)
-- **Module 01 Foundations** — 7 full lessons, ~28,000 words
-- **Working calculators** — `psec` package, 66 passing tests, demo with 8 worked examples
-- **Security Device Data Model** — 44-field schema, 6 projections, 11 validation rules,
-  synthetic flawed dataset
-- Quiz 01 + answer key, 58-card flashcard deck
-- Project 1 brief + senior reference solution
-- Data center capstone brief
+**`35_Doors_and_Hardware/` lessons 01–05 at full depth** (~18k words of lessons, ~10.4k words
+of solutions), on branch `module/35-doors-hardware`:
+
+- Module overview with objectives, study guidance, cross-references, provisional cert mapping
+- **01 — Door Anatomy:** the opening as the unit of design; frame, leaf, hinges, latching,
+  closers; reading a door schedule and a hardware set
+- **02 — Handing, Swing, Secure Side:** the four hands, the field procedure, where each
+  security device goes, why handing errors are always schedule impacts
+- **03 — Locking Hardware Families:** the five electrified families, selection framework,
+  door position vs. latch position, worked power-supply / battery / voltage-drop calculations
+- **04 — Fail Safe vs. Fail Secure:** the five failure modes, why fail secure does not trap
+  anyone, why the fire alarm release must be hardwired
+- **05 — Egress:** free egress, means of egress, the special locking arrangements, how to
+  respond when a client asks you to lock an exit. Every code claim `[CODE][VERIFY]`.
+- `_solutions/` for all five lessons, written alongside — deliberately **not** repeating the
+  Module 01 dangling-solutions debt
+
+Numeric examples in lesson 03 and its solutions were computed with `psec.power` and are
+reproducible: see the verification block in `HANDOFF.md`.
 
 ## Next task
 
-**`35_Doors_and_Hardware/` lessons 01–07.**
+**`35_Doors_and_Hardware/` lessons 06–08**, then the module's assessment material.
 
-Why this next: roadmap month 1 week 3 depends on it, and Project 1 (the learner's first lab)
-references it directly. It is currently the most disruptive gap.
+Why this next: lesson 03 forward-references power transfer to lesson 06 in three places, and
+lesson 05's "Next" link points at 06. Roadmap month 4 pairs `04_Access_Control/` with
+`35/03–06`, so 06 is the first binding constraint. Month 8 needs 07.
 
 Scope:
-1. Door anatomy and terminology
-2. Handing, swing, secure side
-3. Locking hardware families (strikes, mags, electrified locksets, electrified exit devices)
-4. Fail safe vs fail secure — the decision framework
-5. Egress, delayed egress, controlled egress `[CODE][VERIFY throughout]`
-6. Electrified hardware and power transfer
-7. Fire-rated openings
-Plus: key management and mechanical security (gap-analysis addition), the 10-door field
-exercise, quiz, and flashcards.
+6. Electrified hardware and power transfer — electric hinges, door loops, EPTs, voltage drop
+   across the leaf, coordination with `34_Electrical_Power/` and `psec.power`
+7. Fire-rated openings — label requirements, what may not be modified, positive latching,
+   hold-opens, the inspection/testing obligation `[CODE][VERIFY]`
+8. Key management and mechanical security — keying schedules, master key hierarchy, why
+   mechanical security is still the real perimeter
+Plus: the 10-door field exercise, `25_Quizzes/quiz_35_doors.md` + isolated answer key,
+`26_Flashcards/35_doors_hardware.csv`, and `_solutions/` for 06–08 alongside the lessons.
 
-**Quality bar:** match `01_Foundations/03_functional_chain.md` and
-`27_Labs/_solutions/project_01_reference.md`.
+**Quality bar:** match `35_Doors_and_Hardware/03_locking_hardware_families.md` and
+`01_Foundations/03_functional_chain.md`. ~3–4k words per lesson.
 
 **Before starting:** read `docs/AI_CONTEXT.md` and `docs/HANDOFF.md`.
-Branch: `module/35-doors-hardware` off `main`.
+Branch: `module/35-doors-hardware-part2` off `main`.
 
 **Before finishing:**
 1. Run the verification commands in `HANDOFF.md`
@@ -56,3 +63,6 @@ this). Until then, `22_APP/` and `23_PSP/` must not be built — the provisional
 `31_References/source_index.md` are from exam-dump vendors and are flagged low-confidence.
 
 This is not urgent: the roadmap doesn't start the APP track until month 6.
+
+Note: `35_Doors_and_Hardware/00_MODULE_OVERVIEW.md` carries a provisional APP/PSP mapping table
+with the same `[VERIFY]` caveat. It will need correcting at the same time.

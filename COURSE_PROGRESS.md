@@ -4,7 +4,7 @@
 This file is the source of truth for what has been *generated*. It is not a study tracker —
 that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
-**Last updated:** 2026-08-06 (Session 1)
+**Last updated:** 2026-08-07 (Session 2)
 
 ---
 
@@ -90,7 +90,7 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | 32 | Engineering Math | ⬜ | — | 8 lessons. **Must derive what `28_Calculators/` implements** — the tests are the derivation record |
 | 33 | Design Review QA | ⬜ | — | Flawed packages. `16_Automation/sample_data/devices_flawed.csv` is a working prototype of the pattern |
 | 34 | Electrical Power | ⬜ | — | 6 lessons |
-| 35 | Doors & Hardware | ⬜ | — | 7 lessons. **High priority** — needed for month 1 and referenced by Project 1 |
+| 35 | Doors & Hardware | 🟡 | Overview + lessons 01–05 (~18k words) with `_solutions/` for all five: door anatomy, handing & secure side, locking hardware families, fail safe vs fail secure, egress. Worked power-supply / battery / voltage-drop calculations verified against `psec.power`. **Project 1 and roadmap month 1 are unblocked.** | 06 electrified hardware & power transfer; 07 fire-rated openings; 08 key management; 10-door field exercise; quiz + flashcards |
 | 36 | Human Factors, Privacy, Ethics | ⬜ | — | Per gap analysis |
 | 37 | Project Management | ⬜ | — | Incl. cost estimating and delivery methods (added in gap analysis) |
 | 38 | Products & Ratings | ⬜ | — | Incl. environmental conditions (added in gap analysis) |
@@ -132,8 +132,15 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
    test file, since the tests encode the hand calculations.
 4. **No site plan geometry for the capstone.** The brief describes the site in prose;
    dimensioned base geometry (even ASCII or SVG) would materially improve the exercise.
-5. **`35_Doors_and_Hardware/` is referenced by Project 1 and the roadmap month 1 but not
-   written.** This is the most disruptive current gap for a learner following the roadmap.
+5. ~~**`35_Doors_and_Hardware/` is referenced by Project 1 and the roadmap month 1 but not
+   written.**~~ **Resolved for lessons 01–05 (Session 2).** Project 1 (which references 01–04)
+   and roadmap month 1 week 3 (01–02) are unblocked. Roadmap month 4 references 03–06 and
+   month 8 references 07, so lesson 06 is the next binding constraint.
+6. **`35_Doors_and_Hardware/` 06–08 unwritten.** Lesson 03 forward-references power transfer to
+   lesson 06 in three places, and lesson 05's "Next" link points at 06. Roadmap month 4
+   (`04_Access_Control/` + `35/03–06`) is the first place this bites.
+7. **No quiz or flashcards for module 35.** Module 01 has both; module 35 has exercises and
+   solutions but no retrieval-spaced material yet.
 
 ---
 
@@ -141,8 +148,10 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 **In priority order** — each is sized to be completable and useful on its own:
 
-1. **`35_Doors_and_Hardware/` lessons 01–07.** Unblocks roadmap month 1 and Project 1.
-   The Project 1 reference solution already models the depth and vocabulary expected.
+1. **`35_Doors_and_Hardware/` lessons 06–08** — electrified hardware and power transfer, fire-
+   rated openings, key management and mechanical security. Then the 10-door field exercise,
+   quiz, and flashcards to close the module. Lesson 03 forward-references 06 three times;
+   match the depth of 01–05 (~3–4k words per lesson, `_solutions/` written alongside).
 2. **`32_Engineering_Math/` lessons 01–07.** Derive what `28_Calculators/` implements. Write
    from `tests/test_psec.py` — every test's expected value is a hand calculation waiting to be
    shown. Include problem sets with separated answer keys.
