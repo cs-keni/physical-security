@@ -463,3 +463,128 @@ added, Session 4 carry-overs section, next work item), `CLAUDE.md`, `28_Calculat
 | `0e12f21` | Module 32 overview and integrated sizing capstone |
 | `2c2f9ca` | Quiz 32 + key, flashcards, doc updates, link fix |
 | `0c1884c` | Merge `module/32-engineering-math` to `main` |
+
+---
+
+## 2026-08-08 — Session 5: close Module 01's solution debt
+
+Branch `module/01-foundations-solutions` off `main`. ~37k words across 10 files. **The repo's
+oldest open debt**, carried since Session 1.
+
+### What was missing, and the count that was wrong
+
+Module 01 shipped in Session 1 with **9 dangling links** — before the
+write-solutions-in-the-same-commit convention existed. Every doc since has recorded this as
+*"4 missing solution files."*
+
+**There were 6.** Lessons 02 through 07 each carry an exercise set. The number was recorded once,
+early, and copied forward across four sessions without ever being re-counted against the files.
+Worth logging as a general caution: **re-derive a tracked number before acting on it.** The
+link-check script would have caught this at any point; nobody ran it against module 01 until now.
+
+### Content written
+
+- **`_solutions/02_risk_vocabulary_solutions.md`** — 8 practice problems plus the full risk chain
+  for two of them. Marked on the *second* half of each question (what you would need to know),
+  because that is where the engineering is.
+- **`_solutions/03_functional_chain_solutions.md`** — E3.1's five missing-function cases,
+  **E3.2's timely-detection arithmetic**, the function-mapping table, and the 100-word plain-English
+  explanation with a breakdown of what makes it work.
+- **`_solutions/04_zones_solutions.md`** — zone diagram and integrity checklist against a synthetic
+  building, the 12-item SPOF enumeration ranked by cost-effectiveness, and the $50k-door
+  conversation.
+- **`_solutions/05_cpted_solutions.md`** — the six-condition table, the glass-lobby problem solved
+  without losing the architect's design, and the $15,000 allocation with its ordering rule
+  (restore before you add; buy signals before hardware).
+- **`_solutions/06_requirements_solutions.md`** — vague-to-testable conversions, the four
+  pathologies, **E6.4's submittal review**, and E6.5's budget cut against a constructed
+  SEC-001..014 set.
+- **`_solutions/07_systems_failure_solutions.md`** — the intrusion chain and its failure table,
+  the PoE switch FMEA, five emergent failures, and **E7.5's analytics workload arithmetic**.
+- **`vocabulary.md`** — full module glossary plus a routinely-confused disambiguation table.
+- **`checklist_foundations.md`** — the reasoning checklist: 8 sections of *questions*, closing with
+  the five that catch the most.
+- **`exercises.md`** + **`_solutions/exercises_solutions.md`** — see below.
+
+### Design decisions worth recording
+
+- **`exercises.md` was ambiguous scope and became the module capstone.** The overview promised
+  "practice + scenarios," but every lesson already carries its own exercises, so a separate file
+  risked duplication or a second dangling link. It is now an index of the per-lesson sets **plus
+  the Ashford Public Library capstone** — one site through all 7 lessons, Parts A–G, with a full
+  reference solution. That also gives module 01 the capstone it lacked, matching modules 32 and 35.
+- **The capstone is a library on purpose.** Every worked example in module 01 is a warehouse, an
+  office, or a server room — buildings where hardening is culturally acceptable and the assets are
+  property. A library inverts both: the mission is unrestricted public access, and the most
+  valuable asset is staff, not the collection. Most of the module's instincts produce the wrong
+  answer there, which is what the exercise tests. **The tell for a weak submission is a proposal
+  that controls the entrance.**
+- **The capstone's Part B produces a result none of the module's other examples do.** Worked
+  through six variants with `psec.pps`: moving detection to the point of entry gains only 40 s
+  against a 215 s deficit, because the **90 s assessment delay** is the binding term, not the
+  sensor placement. Detection works only when the sensor moves outside the building *and*
+  assessment drops to 20 s — and at the realistic unverified-alarm response of 15 minutes the
+  required detection point goes **negative**, so detection is not achievable at all. The delay
+  lever (a safe, +325 s of margin) is decisively correct, which is the **opposite** of the
+  warehouse conclusion in E3.2 and in module 32's capstone. The solution states why the answers
+  differ: asset size, who controls response, and what the institution is for.
+- **Exercises done against the learner's own building get marking criteria plus a synthetic
+  worked reference**, not a single "answer" — the pattern module 35's survey reference
+  established. All fictional buildings labelled synthetic per `AI_CONTEXT.md` hard rule 4.
+- **E6.5's SEC-001..014 table is constructed and flagged as such.** The lesson refers to it but
+  shows only four RTM rows; the solution says so rather than pretending the set exists.
+- **Every calculation was computed by running `psec` and transcribing**, per the module 32
+  convention — E3.2 and capstone Part B with `psec.pps`, E6.4 with `psec.optics`, E7.2 with
+  `psec.power`. Two results worth noting because they make the exercises sharper than intended:
+  E6.4's submitted lens crosses a **DORI class boundary** (81.8 PPF identify → 62.8 recognise),
+  and E7.2's 24 802.3af cameras on a 370 W switch land at **99.9% utilisation with 0 free ports**,
+  so "PoE budget exceeded" is the as-designed state rather than a hypothetical failure mode.
+
+### Code and link fixes
+
+**`01_Foundations/03_functional_chain.md` linked to `28_Calculators/timely_detection.py`**, which
+was superseded by `psec/pps.py` in Phase 3 and never updated — a stale link that survived four
+sessions. It now points at `psec/pps.py` and at `32_Engineering_Math/08_adversary_path.md`.
+
+No Python changed this session.
+
+### Verification
+
+```
+python3 28_Calculators/tests/test_psec.py                → Ran 68 tests, OK
+python3 28_Calculators/demo.py                           → clean
+python3 16_Automation/data_model/validate.py <sample> CD → 25 errors / 5 warnings / 4 info
+                                                           (unchanged baseline)
+Repo-wide link check                                     → 1 broken, down from 11
+```
+
+**The one remaining broken link repo-wide** is
+`30_Capstones/data_center_campus/00_BRIEF.md` → `_reference_solution/`, which is
+`COURSE_PROGRESS.md` known issue 4. Every other relative target in every written module resolves.
+
+### Docs updated
+
+`COURSE_PROGRESS.md` (module 01 row, quality-bar line, verified-artifacts rows, known issues 2 and
+6 resolved, next work item renumbered), `PHASES.md` (Phase 2 → ✅ COMPLETE with the wrong-count
+correction and the capstone rationale), `docs/CURRENT_TASK.md`, `docs/HANDOFF.md` (solutions
+decision amended, Session 5 carry-overs, next work item).
+
+### Follow-ups
+
+- **`03_Video_Surveillance/` is the next work item and is fully unblocked.** Module 32 lessons
+  01–04 supply all of its math; those lessons should be cross-referenced, not repeated.
+- **`30_Capstones/data_center_campus/_reference_solution/` is now the only solution debt in the
+  repo.** It is 25 deliverables and depends on `20_Data_Center/`, so it is sequenced after that
+  module rather than treated as a quick fix.
+- **A process note worth keeping:** run the link check against a module *before* declaring its
+  debts, not just after writing it. A four-session-old count was wrong by 50% and nothing caught
+  it because the check was only ever run on new work.
+- Three provisional APP/PSP mapping tables still need correcting when the ASIS block clears.
+
+### Commit record
+
+| Commit | Scope |
+|---|---|
+| `a653978` | Module 01 solutions for lessons 02–03; fix stale calculator link |
+| `7f0112c` | Module 01 solutions for lessons 04–05 |
+| `3954145` | Module 01 solutions for lessons 06–07 |

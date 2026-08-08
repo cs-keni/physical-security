@@ -28,7 +28,7 @@ Ordering principle: **build what unblocks the learner's next month first.** A pe
 - [x] `COURSE_PROGRESS.md`
 - [x] `docs/` — AI_CONTEXT, HANDOFF, CURRENT_TASK, ENGINEERING_LOG
 
-## Phase 2 — Foundations ✅ COMPLETE (solutions outstanding)
+## Phase 2 — Foundations ✅ COMPLETE
 
 - [x] Module overview with objectives and certification mapping
 - [x] 01 — What Physical Security Engineering Is
@@ -40,8 +40,28 @@ Ordering principle: **build what unblocks the learner's next month first.** A pe
 - [x] 07 — Systems Thinking and Failure Thinking
 - [x] Quiz 01 (30 questions) + full answer key with explanations
 - [x] Flashcard deck (58 cards, validated)
-- [ ] `_solutions/` for the 4 sets of embedded exercises
-- [ ] `vocabulary.md`, `checklist_foundations.md`
+- [x] `_solutions/` for all 6 sets of embedded exercises *(the original count of 4 was wrong —
+      lessons 02–07 each carry an exercise set, so there were 6)*
+- [x] `vocabulary.md` — full module glossary with the disambiguation drill
+- [x] `checklist_foundations.md` — the reasoning checklist, 8 sections + the five questions
+      that catch the most
+- [x] `exercises.md` — per-lesson index plus the **module capstone** (Ashford Public Library:
+      one site, all 7 lessons), with a reference solution
+
+**Closed in Session 5.** This was the repo's oldest debt: module 01 shipped in Session 1 with
+9 dangling links, before the write-solutions-in-the-same-commit convention existed. Every module
+now has solutions for every exercise that links to them.
+
+**One correction made while closing it:** `03_functional_chain.md` linked to
+`28_Calculators/timely_detection.py`, which was superseded by `psec/pps.py` in Phase 3 and never
+updated. It now points at `psec/pps.py` and at the module 32 derivation.
+
+**The capstone is deliberately a library**, not a warehouse or an office. Every worked example in
+the module is a building where hardening is culturally acceptable and the assets are property; a
+library inverts both, so the exercise tests which instincts survive when the mission forbids the
+standard toolkit. Its adversary-path arithmetic produces a result the module's other examples do
+not: **detection cannot fix the path at any achievable sensor placement**, and the delay lever —
+usually the worst value — is decisively correct.
 
 ## Phase 3 — Working tooling ✅ COMPLETE
 
