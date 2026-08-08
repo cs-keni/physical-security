@@ -588,3 +588,5 @@ decision amended, Session 5 carry-overs, next work item).
 | `a653978` | Module 01 solutions for lessons 02–03; fix stale calculator link |
 | `7f0112c` | Module 01 solutions for lessons 04–05 |
 | `3954145` | Module 01 solutions for lessons 06–07 |
+| `3faed54` | vocabulary.md, checklist_foundations.md, exercises.md + capstone, doc updates |
+| `426f5fc` | Merge `module/01-foundations-solutions` to `main` |
