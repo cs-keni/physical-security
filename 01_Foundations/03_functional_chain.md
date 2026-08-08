@@ -328,8 +328,11 @@ the path and find which barrier the adversary reaches at t = 300 s — detection
 before that point, and assessment must be available there. That's how a detection layer gets
 *located by calculation* rather than by habit.
 
-> The calculator implementing this is at
-> [`../28_Calculators/timely_detection.py`](../28_Calculators/timely_detection.py).
+> The calculator implementing this is
+> [`../28_Calculators/psec/pps.py`](../28_Calculators/psec/pps.py) — `AdversaryPath`,
+> `required_detection_point_s`, and `compare_interventions`. The full derivation of every
+> formula in it is
+> [`../32_Engineering_Math/08_adversary_path.md`](../32_Engineering_Math/08_adversary_path.md).
 > **Do the arithmetic by hand first.**
 
 ### Where this model is honest about its limits
