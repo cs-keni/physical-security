@@ -4,7 +4,7 @@
 This file is the source of truth for what has been *generated*. It is not a study tracker —
 that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
-**Last updated:** 2026-08-07 (Session 3)
+**Last updated:** 2026-08-08 (Session 4)
 
 ---
 
@@ -80,14 +80,14 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | 22 | APP | ⬜ | — | **Verify domains against the official ASIS handbook first** |
 | 23 | PSP | ⬜ | — | Same caveat |
 | 24 | CPP Roadmap | ⬜ | — | Roadmap only |
-| 25 | Quizzes | 🟡 | `quiz_01_foundations.md` (30 Q) + full answer key with explanations | Quizzes 02–20; cumulative reviews |
-| 26 | Flashcards | 🟡 | `01_foundations.csv` — 58 cards, CSV-validated, Anki-ready | Decks for all other modules |
+| 25 | Quizzes | 🟡 | `quiz_01_foundations.md`, `quiz_35_doors_hardware.md`, `quiz_32_engineering_math.md` (30 Q each) + full answer keys with explanations | Quizzes for the remaining modules; cumulative reviews |
+| 26 | Flashcards | 🟡 | `01_foundations.csv` (58), `35_doors_hardware.csv` (77), `32_engineering_math.csv` (80) — 215 cards, CSV-validated, Anki-ready | Decks for all other modules |
 | 27 | Labs | 🟡 | Project 1 brief + full senior reference solution | Projects 2–7 |
-| 28 | Calculators | ✅ | `psec` package: `optics`, `video`, `power`, `pps`. `demo.py` with 8 worked examples. **66 tests, all passing.** `README.md` documenting assumptions and non-goals | Rack/port planner; cost model |
+| 28 | Calculators | ✅ | `psec` package: `optics`, `video`, `power`, `pps`. `demo.py` with 8 worked examples. **68 tests, all passing.** `README.md` documenting assumptions and non-goals | Rack/port planner; cost model |
 | 29 | Templates | ⬜ | — | Schedules, trackers, BoD, SOO templates |
 | 30 | Capstones | 🟡 | `data_center_campus/00_BRIEF.md` — full fictional site, 25 deliverables, 12 deliberate ambiguities | `_reference_solution/`; site plan geometry |
 | 31 | References | ✅ | `source_index.md` | Grows continuously |
-| 32 | Engineering Math | ⬜ | — | 8 lessons. **Must derive what `28_Calculators/` implements** — the tests are the derivation record |
+| 32 | Engineering Math | ✅ | Overview + 8 full lessons (~42.6k words) with `_solutions/` for every one: camera FOV, pixel density & DORI, bandwidth, storage & retention, PoE & switch capacity, voltage drop, battery & supply sizing, adversary path & timely detection. Plus the integrated sizing capstone (one site, all 8 lessons) with a full reference solution, Quiz 32 + isolated key, and 80 flashcards. **This module is the derivation record for `28_Calculators/`** — every value transcribed from a `psec` run. Writing it found **2 real defects in `psec`** (see known issues 7) | — |
 | 33 | Design Review QA | ⬜ | — | Flawed packages. `16_Automation/sample_data/devices_flawed.csv` is a working prototype of the pattern |
 | 34 | Electrical Power | ⬜ | — | 6 lessons |
 | 35 | Doors & Hardware | ✅ | Overview + 8 full lessons (~28k words) with `_solutions/` for every one: door anatomy, handing & secure side, locking hardware families, fail safe vs fail secure, egress, power transfer, fire-rated openings, key management. Plus the 10-door survey capstone with a reference findings set, Quiz 35 + isolated key, and 77 flashcards. All power calculations computed with `psec.power`. **Roadmap months 1, 4, and 8 unblocked; Project 1 has its prerequisite.** | — |
@@ -101,13 +101,16 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 | Artifact | Verification |
 |---|---|
-| `28_Calculators/psec/*` | `python3 28_Calculators/tests/test_psec.py` → **66 tests, OK** |
+| `28_Calculators/psec/*` | `python3 28_Calculators/tests/test_psec.py` → **68 tests, OK** |
 | `28_Calculators/demo.py` | Runs; 8 worked examples with interpretation |
 | `16_Automation/data_model/validate.py` | Runs against the flawed sample; 25 errors / 5 warnings / 4 info, all genuine |
 | `16_Automation/data_model/schema.py` | 6 projections verified (door schedule, camera schedule, IP plan, cable schedule, counts ×2) |
 | `26_Flashcards/01_foundations.csv` | CSV-parsed: 58 cards, 3 fields, 0 malformed |
 | `26_Flashcards/35_doors_hardware.csv` | CSV-parsed: 77 cards, 3 fields, 0 malformed |
+| `26_Flashcards/32_engineering_math.csv` | CSV-parsed: 80 cards, 3 fields, 0 malformed |
 | `35_Doors_and_Hardware/` internal links | 21 files link-checked; all relative targets resolve |
+| `32_Engineering_Math/` internal links | 19 files link-checked; all relative targets resolve |
+| `32_Engineering_Math/` worked values | Every number reproduced by running `psec` directly; capstone model in the reference solution |
 
 ---
 
@@ -118,7 +121,7 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | APP | ⬜ Not started. **Blocked on verifying domains against the official ASIS Certification Handbook** (asisonline.org returns 403 to automated fetch). Provisional domain names recorded in `31_References/source_index.md` with confidence flags. |
 | PSP | ⬜ Same. Domain *names* are moderately confident; **weightings are not asserted**. |
 | CPP | ⬜ Roadmap only, by design. |
-| **Indirect coverage** | Module 01 maps to APP D1/D3 and PSP D1/D2 (`01_Foundations/00_MODULE_OVERVIEW.md`). Module 35 maps to APP D1/D2/D4 and PSP D2/D3 (`35_Doors_and_Hardware/00_MODULE_OVERVIEW.md`). **Both mapping tables are provisional and must be corrected when the ASIS block clears.** |
+| **Indirect coverage** | Module 01 maps to APP D1/D3 and PSP D1/D2 (`01_Foundations/00_MODULE_OVERVIEW.md`). Module 35 maps to APP D1/D2/D4 and PSP D2/D3 (`35_Doors_and_Hardware/00_MODULE_OVERVIEW.md`). Module 32 maps to APP D1/D4 and PSP D1/D2/D3 (`32_Engineering_Math/00_MODULE_OVERVIEW.md`). **Both mapping tables are provisional and must be corrected when the ASIS block clears.** |
 
 ---
 
@@ -129,18 +132,28 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 2. **Module 01 exercise solutions are not written.** The lessons reference
    `01_Foundations/_solutions/*.md` (4 files). Retrieval checks and the quiz are covered; the
    embedded E-numbered exercises are not.
-3. **`32_Engineering_Math/` lags `28_Calculators/`.** The code exists and is tested; the
-   derivations that justify it are not yet written. The lessons should be written *from* the
-   test file, since the tests encode the hand calculations.
+3. ~~**`32_Engineering_Math/` lags `28_Calculators/`.**~~ **Resolved (Session 4).** Module 32 is
+   complete: 8 lessons, all solutions, the integrated sizing capstone, quiz, and flashcards.
+   `28_Calculators/` now has a full derivation record.
 4. **No site plan geometry for the capstone.** The brief describes the site in prose;
    dimensioned base geometry (even ASCII or SVG) would materially improve the exercise.
 5. ~~**`35_Doors_and_Hardware/` is referenced by Project 1 and the roadmap month 1 but not
    written.**~~ **Resolved (Sessions 2–3).** Module 35 is complete: 8 lessons, all solutions,
    capstone survey, quiz, and flashcards. Roadmap months 1, 4, and 8 are unblocked.
-6. **Module 35 is the only module with no solution debt.** Module 01 still has 4 dangling
-   `_solutions/` links (issue 2 above). The convention adopted in module 35 — write solutions in
-   the same commit as the lessons — should be applied when Module 01's gap is closed and to
-   every module from here.
+6. **Modules 32 and 35 are the only modules with no solution debt.** Module 01 still has 4
+   dangling `_solutions/` links (issue 2 above), and `01_Foundations/03_functional_chain.md`
+   still links to `28_Calculators/timely_detection.py`, which was superseded by `psec/pps.py`.
+   The convention adopted in module 35 — write solutions in the same commit as the lessons —
+   held for module 32 and should be applied when Module 01's gap is closed and to every module
+   from here.
+7. **Two defects in `psec` were found by hand-checking units while writing Module 32, and both
+   are fixed.** (a) `video.stream_gb_per_day(decimal_gb=False)` divided decimal megabytes by
+   1024 instead of 2³⁰/10⁶, halving the reported decimal/binary gap — the exact error its own
+   docstring warned about, missed because the only test on that path asserted `binary < decimal`,
+   true either way. (b) `pps.compare_interventions` documented three levers and returns four.
+   **Test count 66 → 68.** The lesson generalises: a passing test suite is not evidence that the
+   units are right, and the cheapest defect detector available is dimensional analysis done by
+   hand.
 
 ---
 
@@ -148,24 +161,28 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 **In priority order** — each is sized to be completable and useful on its own:
 
-1. **`32_Engineering_Math/` lessons 01–07.** Derive what `28_Calculators/` implements. Write
-   from `tests/test_psec.py` — every test's expected value is a hand calculation waiting to be
-   shown. Include problem sets with separated answer keys.
-2. **`01_Foundations/_solutions/`** — the 4 missing exercise solution files, plus
+1. **`01_Foundations/_solutions/`** — the 4 missing exercise solution files, plus
    `vocabulary.md` and `checklist_foundations.md`. This is the repo's oldest open debt and it is
    small; closing it makes "every lesson's solutions exist" true repo-wide.
-3. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
-   3–4 depend on it.
-4. **`04_Access_Control/` lessons 01–11.** Module 35 lessons 03, 04, and 06 hand off to this
+2. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
+   3–4 depend on it. **Module 32 lessons 01–04 now supply all of its math**, so these lessons
+   can cover the imaging chain, selection, and design judgment without re-deriving anything.
+3. **`04_Access_Control/` lessons 01–11.** Module 35 lessons 03, 04, and 06 hand off to this
    one directly — offline controller behavior, REX strategy, and reader-in/reader-out are all
    raised there and resolved here.
-5. **`02_Risk_Assessment/` lessons 01–07.**
-6. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
+4. **`02_Risk_Assessment/` lessons 01–07.** Module 32 lesson 08 derives the path
+   arithmetic; this module supplies the method for finding the paths worth analysing.
+5. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
 
 **Authoring reminder:** before marking any module complete here, open it and confirm it
 contains actual instructional material — worked examples, real numbers, exercises with
 solutions — not headings.
 
-**Module 35 is the current quality bar for a complete module:** overview, 8 lessons, solutions
-for every lesson, a capstone field exercise with a reference, a quiz with an isolated key, and a
-validated flashcard deck. Match that shape.
+**Modules 32 and 35 are the current quality bar for a complete module:** overview, 8 lessons,
+solutions for every lesson, a capstone exercise with a reference solution, a quiz with an
+isolated key, and a validated flashcard deck. Match that shape.
+
+**Module 32 adds one convention worth keeping:** where a module has code behind it, every
+numeric value in the prose is produced by *running* that code and transcribing the result — never
+hand-written. It keeps the lessons and the tests from drifting, and it is what surfaced the two
+`psec` defects in known issue 7.

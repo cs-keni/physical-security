@@ -27,7 +27,7 @@ lessons. The only code is `28_Calculators/psec/` and `16_Automation/data_model/`
 ## Verification (run before and after any code change)
 
 ```bash
-python3 28_Calculators/tests/test_psec.py                       # 66 tests → OK
+python3 28_Calculators/tests/test_psec.py                       # 68 tests → OK
 python3 28_Calculators/demo.py                                   # 8 worked examples
 python3 16_Automation/data_model/validate.py \
         16_Automation/sample_data/devices_flawed.csv CD          # 25 errors (intentional)

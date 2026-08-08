@@ -81,7 +81,7 @@ missing IP address it cannot possibly have yet. This matters — a validator tha
 gets ignored, which is worse than no validator.
 
 ### `28_Calculators/psec/` — engineering calculators ✅
-Optics, video bandwidth/storage, PoE, voltage drop, battery, timely detection. 66 tests.
+Optics, video bandwidth/storage, PoE, voltage drop, battery, timely detection. 68 tests.
 See [`../28_Calculators/README.md`](../28_Calculators/README.md).
 
 ---

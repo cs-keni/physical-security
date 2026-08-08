@@ -6,7 +6,7 @@ for permission.
 
 ```bash
 python3 28_Calculators/demo.py              # worked examples with interpretation
-python3 28_Calculators/tests/test_psec.py   # 66 tests
+python3 28_Calculators/tests/test_psec.py   # 68 tests
 ```
 
 ## The rule

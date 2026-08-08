@@ -49,7 +49,7 @@ Ordering principle: **build what unblocks the learner's next month first.** A pe
 - [x] `psec.video` — bitrate, storage, retention, ranges, RAID
 - [x] `psec.power` — PoE budgets, voltage drop, conductor selection, battery
 - [x] `psec.pps` — adversary paths, timely detection, intervention comparison
-- [x] 66 tests, all passing, expected values hand-computed
+- [x] 68 tests, all passing, expected values hand-computed
 - [x] `demo.py` — 8 worked examples with engineering interpretation
 - [x] `28_Calculators/README.md` — assumptions and explicit non-goals
 - [x] Security Device Data Model — schema, 6 projections, 11 validation rules
@@ -84,20 +84,51 @@ Project 1 has its prerequisite. First module in the repo with no outstanding sol
 - [x] Quiz 35 (30 questions) + isolated answer key with full explanations
 - [x] Flashcard deck (77 cards, validated)
 
-## Phase 6 — Engineering math ⬜
+## Phase 6 — Engineering math ✅ COMPLETE
 
 Write the derivations for what Phase 3 already implements. Source the worked values from
 `28_Calculators/tests/test_psec.py`.
 
-- [ ] 01 Camera FOV and focal length
-- [ ] 02 Pixel density and DORI
-- [ ] 03 Bandwidth
-- [ ] 04 Storage and retention
-- [ ] 05 PoE budgets
-- [ ] 06 Voltage drop
-- [ ] 07 Battery and UPS sizing
-- [ ] 08 Rack, port, and capacity planning
-- [ ] Problem sets + separated answer keys for each
+- [x] `32_Engineering_Math/` module overview
+- [x] 01 Camera FOV and focal length
+- [x] 02 Pixel density and DORI
+- [x] 03 Bandwidth
+- [x] 04 Storage and retention
+- [x] 05 PoE budgets **and port/capacity planning** (see deviation below)
+- [x] 06 Voltage drop
+- [x] 07 Battery and UPS sizing
+- [x] 08 **Adversary path and timely detection** (see deviation below)
+- [x] Problem sets + separated answer keys for each
+- [x] Integrated sizing capstone + reference solution
+- [x] Quiz 32 (30 questions) + isolated answer key with full explanations
+- [x] Flashcard deck (80 cards, validated)
+
+### Deviation from the original lesson list, and why
+
+The planned item 08 was **"Rack, port, and capacity planning."** It was **folded into lesson 05**
+instead, and **08 became "Adversary path and timely detection."** Two reasons:
+
+1. Port count, oversubscription, and spare-port policy **are** the `PoESwitch` checks. Splitting
+   them from the PoE power budget would have separated two constraints whose whole lesson is that
+   they bind independently. Lesson 05 now teaches both and shows which one binds for a given mix.
+2. `28_Calculators/psec/pps.py` had substantial tested math — `AdversaryPath`, the timeliness
+   inequality, `required_detection_point_s`, `compare_interventions` — with **no derivation
+   anywhere in the repo**. Since this module is the derivation record for `psec`, leaving `pps.py`
+   underived would have left the module incomplete against its own stated purpose.
+
+### Two defects found by working the units by hand
+
+Both fixed in the same branch, both with new tests. **Test count 66 → 68.**
+
+1. **`video.stream_gb_per_day(decimal_gb=False)` divided decimal megabytes by 1024.** A bitrate is
+   decimal, so the intermediate megabytes are 10⁶ bytes; converting to GiB requires dividing by
+   2³⁰/10⁶ = 1073.741824. The bug reported the decimal/binary gap at TB scale as 4.86% when the
+   true figure is 9.95% — the exact "classic ~10% error" its own docstring warned about. No test
+   caught it because the only test on that path asserted `binary < decimal`, true either way.
+   Fixed with named constants plus `test_binary_units_are_true_gibibytes` and
+   `test_decimal_binary_gap_at_tb_scale_is_about_ten_percent`.
+2. **`pps.compare_interventions` docstring said "three levers" and returns four.** Fixed, with the
+   module-32 cross-reference added.
 
 ## Phase 7 — Video surveillance ⬜
 

@@ -168,9 +168,14 @@ def compare_interventions(path: AdversaryPath, response_time_s: float,
                           required_margin_s: float = 0.0) -> dict:
     """What would it take to make this path timely?
 
-    Returns the three levers, because when a system is not timely the answer is
-    rarely "add hardware" -- and showing all three converts an argument about
-    products into a decision about strategy.
+    Returns FOUR levers, because when a system is not timely the answer is
+    rarely "add hardware" -- and showing all four converts an argument about
+    products into a decision about strategy. Three of them move terms in the
+    timeliness inequality (detection, delay, response); the fourth changes the
+    problem instead of solving it (reduce the consequence), and it is the one
+    nobody proposes.
+
+    Derivation and worked examples: ../../32_Engineering_Math/08_adversary_path.md
     """
     base = path.evaluate(response_time_s, required_margin_s)
     if base["timely"]:
