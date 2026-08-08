@@ -212,4 +212,13 @@ renumbered, next work item).
 - `00_MODULE_OVERVIEW.md` carries a provisional APP/PSP mapping that must be corrected when the
   ASIS handbook block is cleared.
 
-**Commit:** see `git log` — this entry ships in the same commit as the content it describes.
+### Commit record
+
+| Commit | Scope |
+|---|---|
+| `6eddde9` | Add repo-root CLAUDE.md with conventions and skill routing |
+| `2c39e88` | Module 35 lessons 01–05 + `_solutions/` + doc updates |
+| `ff3170b` | Merge `module/35-doors-hardware` to `main` |
+
+As in Session 1, the content commit cannot contain its own hash; it is recorded here in the
+follow-up commit.
