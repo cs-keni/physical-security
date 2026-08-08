@@ -4,7 +4,7 @@
 This file is the source of truth for what has been *generated*. It is not a study tracker —
 that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
-**Last updated:** 2026-08-07 (Session 2)
+**Last updated:** 2026-08-07 (Session 3)
 
 ---
 
@@ -90,7 +90,7 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | 32 | Engineering Math | ⬜ | — | 8 lessons. **Must derive what `28_Calculators/` implements** — the tests are the derivation record |
 | 33 | Design Review QA | ⬜ | — | Flawed packages. `16_Automation/sample_data/devices_flawed.csv` is a working prototype of the pattern |
 | 34 | Electrical Power | ⬜ | — | 6 lessons |
-| 35 | Doors & Hardware | 🟡 | Overview + lessons 01–05 (~18k words) with `_solutions/` for all five: door anatomy, handing & secure side, locking hardware families, fail safe vs fail secure, egress. Worked power-supply / battery / voltage-drop calculations verified against `psec.power`. **Project 1 and roadmap month 1 are unblocked.** | 06 electrified hardware & power transfer; 07 fire-rated openings; 08 key management; 10-door field exercise; quiz + flashcards |
+| 35 | Doors & Hardware | ✅ | Overview + 8 full lessons (~28k words) with `_solutions/` for every one: door anatomy, handing & secure side, locking hardware families, fail safe vs fail secure, egress, power transfer, fire-rated openings, key management. Plus the 10-door survey capstone with a reference findings set, Quiz 35 + isolated key, and 77 flashcards. All power calculations computed with `psec.power`. **Roadmap months 1, 4, and 8 unblocked; Project 1 has its prerequisite.** | — |
 | 36 | Human Factors, Privacy, Ethics | ⬜ | — | Per gap analysis |
 | 37 | Project Management | ⬜ | — | Incl. cost estimating and delivery methods (added in gap analysis) |
 | 38 | Products & Ratings | ⬜ | — | Incl. environmental conditions (added in gap analysis) |
@@ -106,6 +106,8 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | `16_Automation/data_model/validate.py` | Runs against the flawed sample; 25 errors / 5 warnings / 4 info, all genuine |
 | `16_Automation/data_model/schema.py` | 6 projections verified (door schedule, camera schedule, IP plan, cable schedule, counts ×2) |
 | `26_Flashcards/01_foundations.csv` | CSV-parsed: 58 cards, 3 fields, 0 malformed |
+| `26_Flashcards/35_doors_hardware.csv` | CSV-parsed: 77 cards, 3 fields, 0 malformed |
+| `35_Doors_and_Hardware/` internal links | 21 files link-checked; all relative targets resolve |
 
 ---
 
@@ -116,7 +118,7 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | APP | ⬜ Not started. **Blocked on verifying domains against the official ASIS Certification Handbook** (asisonline.org returns 403 to automated fetch). Provisional domain names recorded in `31_References/source_index.md` with confidence flags. |
 | PSP | ⬜ Same. Domain *names* are moderately confident; **weightings are not asserted**. |
 | CPP | ⬜ Roadmap only, by design. |
-| **Indirect coverage** | Module 01 maps to APP D1/D3 and PSP D1/D2 — mapping table is in `01_Foundations/00_MODULE_OVERVIEW.md`. |
+| **Indirect coverage** | Module 01 maps to APP D1/D3 and PSP D1/D2 (`01_Foundations/00_MODULE_OVERVIEW.md`). Module 35 maps to APP D1/D2/D4 and PSP D2/D3 (`35_Doors_and_Hardware/00_MODULE_OVERVIEW.md`). **Both mapping tables are provisional and must be corrected when the ASIS block clears.** |
 
 ---
 
@@ -133,14 +135,12 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 4. **No site plan geometry for the capstone.** The brief describes the site in prose;
    dimensioned base geometry (even ASCII or SVG) would materially improve the exercise.
 5. ~~**`35_Doors_and_Hardware/` is referenced by Project 1 and the roadmap month 1 but not
-   written.**~~ **Resolved for lessons 01–05 (Session 2).** Project 1 (which references 01–04)
-   and roadmap month 1 week 3 (01–02) are unblocked. Roadmap month 4 references 03–06 and
-   month 8 references 07, so lesson 06 is the next binding constraint.
-6. **`35_Doors_and_Hardware/` 06–08 unwritten.** Lesson 03 forward-references power transfer to
-   lesson 06 in three places, and lesson 05's "Next" link points at 06. Roadmap month 4
-   (`04_Access_Control/` + `35/03–06`) is the first place this bites.
-7. **No quiz or flashcards for module 35.** Module 01 has both; module 35 has exercises and
-   solutions but no retrieval-spaced material yet.
+   written.**~~ **Resolved (Sessions 2–3).** Module 35 is complete: 8 lessons, all solutions,
+   capstone survey, quiz, and flashcards. Roadmap months 1, 4, and 8 are unblocked.
+6. **Module 35 is the only module with no solution debt.** Module 01 still has 4 dangling
+   `_solutions/` links (issue 2 above). The convention adopted in module 35 — write solutions in
+   the same commit as the lessons — should be applied when Module 01's gap is closed and to
+   every module from here.
 
 ---
 
@@ -148,21 +148,24 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 **In priority order** — each is sized to be completable and useful on its own:
 
-1. **`35_Doors_and_Hardware/` lessons 06–08** — electrified hardware and power transfer, fire-
-   rated openings, key management and mechanical security. Then the 10-door field exercise,
-   quiz, and flashcards to close the module. Lesson 03 forward-references 06 three times;
-   match the depth of 01–05 (~3–4k words per lesson, `_solutions/` written alongside).
-2. **`32_Engineering_Math/` lessons 01–07.** Derive what `28_Calculators/` implements. Write
+1. **`32_Engineering_Math/` lessons 01–07.** Derive what `28_Calculators/` implements. Write
    from `tests/test_psec.py` — every test's expected value is a hand calculation waiting to be
    shown. Include problem sets with separated answer keys.
-3. **`01_Foundations/_solutions/`** — the 4 missing exercise solution files, plus
-   `vocabulary.md` and `checklist_foundations.md`.
-4. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
+2. **`01_Foundations/_solutions/`** — the 4 missing exercise solution files, plus
+   `vocabulary.md` and `checklist_foundations.md`. This is the repo's oldest open debt and it is
+   small; closing it makes "every lesson's solutions exist" true repo-wide.
+3. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
    3–4 depend on it.
-5. **`04_Access_Control/` lessons 01–11.**
-6. **`02_Risk_Assessment/` lessons 01–07.**
-7. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
+4. **`04_Access_Control/` lessons 01–11.** Module 35 lessons 03, 04, and 06 hand off to this
+   one directly — offline controller behavior, REX strategy, and reader-in/reader-out are all
+   raised there and resolved here.
+5. **`02_Risk_Assessment/` lessons 01–07.**
+6. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
 
 **Authoring reminder:** before marking any module complete here, open it and confirm it
 contains actual instructional material — worked examples, real numbers, exercises with
 solutions — not headings.
+
+**Module 35 is the current quality bar for a complete module:** overview, 8 lessons, solutions
+for every lesson, a capstone field exercise with a reference, a quiz with an isolated key, and a
+validated flashcard deck. Match that shape.

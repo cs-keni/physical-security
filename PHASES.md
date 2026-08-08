@@ -64,10 +64,10 @@ Ordering principle: **build what unblocks the learner's next month first.** A pe
 
 ---
 
-## Phase 5 — Unblock month 1 🟡 IN PROGRESS
+## Phase 5 — Unblock month 1 ✅ COMPLETE
 
-Lessons 01–05 shipped at full depth (Session 2). Project 1 and roadmap month 1 week 3 are
-unblocked. Remaining: 06–08 and the module's assessment material.
+Module 35 shipped complete across Sessions 2 and 3. Roadmap months 1, 4, and 8 are unblocked and
+Project 1 has its prerequisite. First module in the repo with no outstanding solution debt.
 
 - [x] `35_Doors_and_Hardware/` module overview
 - [x] 01 — Door anatomy and terminology
@@ -75,13 +75,14 @@ unblocked. Remaining: 06–08 and the module's assessment material.
 - [x] 03 — Locking hardware families
 - [x] 04 — Fail safe vs fail secure
 - [x] 05 — Egress, delayed egress, controlled egress `[CODE][VERIFY]`
-- [x] `_solutions/` for lessons 01–05 (written alongside the lessons, so this module does not
+- [x] 06 — Electrified hardware and power transfer
+- [x] 07 — Fire-rated openings `[CODE][VERIFY]`
+- [x] 08 — Key management and mechanical security (gap-analysis addition)
+- [x] `_solutions/` for all 8 lessons (written alongside the lessons, so this module does not
       repeat the Module 01 dangling-solutions debt)
-- [ ] 06 — Electrified hardware and power transfer
-- [ ] 07 — Fire-rated openings
-- [ ] 08 — Key management and mechanical security (gap-analysis addition)
-- [ ] Field exercise: photograph and annotate 10 real doors
-- [ ] Quiz + flashcards
+- [x] Field exercise: survey and annotate 10 real doors, with a reference findings set
+- [x] Quiz 35 (30 questions) + isolated answer key with full explanations
+- [x] Flashcard deck (77 cards, validated)
 
 ## Phase 6 — Engineering math ⬜
 

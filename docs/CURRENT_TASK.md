@@ -1,55 +1,67 @@
 # CURRENT_TASK
 
-**Status:** Session 2 complete. No task in progress.
+**Status:** Session 3 complete. No task in progress.
 
 ## Just completed (2026-08-07)
 
-**`35_Doors_and_Hardware/` lessons 01–05 at full depth** (~18k words of lessons, ~10.4k words
-of solutions), on branch `module/35-doors-hardware`:
+**Module 35 Doors and Hardware is finished.** Sessions 2 and 3 together produced ~58k words
+across 21 files. It is the first complete module in the repo — 8 lessons, solutions for every
+lesson, a capstone field exercise, a quiz with an isolated key, and a validated flashcard deck.
 
-- Module overview with objectives, study guidance, cross-references, provisional cert mapping
-- **01 — Door Anatomy:** the opening as the unit of design; frame, leaf, hinges, latching,
-  closers; reading a door schedule and a hardware set
-- **02 — Handing, Swing, Secure Side:** the four hands, the field procedure, where each
-  security device goes, why handing errors are always schedule impacts
-- **03 — Locking Hardware Families:** the five electrified families, selection framework,
-  door position vs. latch position, worked power-supply / battery / voltage-drop calculations
-- **04 — Fail Safe vs. Fail Secure:** the five failure modes, why fail secure does not trap
-  anyone, why the fire alarm release must be hardwired
-- **05 — Egress:** free egress, means of egress, the special locking arrangements, how to
-  respond when a client asks you to lock an exit. Every code claim `[CODE][VERIFY]`.
-- `_solutions/` for all five lessons, written alongside — deliberately **not** repeating the
-  Module 01 dangling-solutions debt
+Session 3 added, on branch `module/35-doors-hardware-part2`:
 
-Numeric examples in lesson 03 and its solutions were computed with `psec.power` and are
-reproducible: see the verification block in `HANDOFF.md`.
+- **06 — Electrified Hardware and Power Transfer:** the four transfer methods, conductor
+  budgeting, and the voltage-drop calculation carried *through* the transfer. Deliberately
+  continues lesson 03's worked example — the same opening, and 12 AWG stops being the answer
+  once the last six feet are counted.
+- **07 — Fire-Rated Openings:** the assembly concept, labels and what voids them, the four
+  behaviors, and the derivation of every rated-opening hardware restriction from "a fire door
+  must latch."
+- **08 — Key Management and Mechanical Security:** the key hierarchy, rekey triggers, the three
+  controls that do the work, construction key turnover, and the no-override decision.
+- `_solutions/` for 06–08 plus a reference findings set for the survey.
+- **`_exercises/10_door_survey.md`** — the module capstone: survey ten real openings against a
+  full recording template and write a ranked findings memo.
+- **`25_Quizzes/quiz_35_doors_hardware.md`** + isolated answer key (30 questions).
+- **`26_Flashcards/35_doors_hardware.csv`** — 77 cards, validated.
 
 ## Next task
 
-**`35_Doors_and_Hardware/` lessons 06–08**, then the module's assessment material.
+**`32_Engineering_Math/` lessons 01–07.**
 
-Why this next: lesson 03 forward-references power transfer to lesson 06 in three places, and
-lesson 05's "Next" link points at 06. Roadmap month 4 pairs `04_Access_Control/` with
-`35/03–06`, so 06 is the first binding constraint. Month 8 needs 07.
+Why this next: `28_Calculators/` is tested and working but the derivations that justify it are
+unwritten, so a learner can use a calculator they don't understand — which the repo's own
+architecture explicitly separated modules 28 and 32 to prevent. Module 35 lessons 03 and 06 now
+lean on `psec.power` in three worked examples and forward-reference `32_Engineering_Math/` for
+the derivations, so the gap is visible to a learner following the roadmap.
 
-Scope:
-6. Electrified hardware and power transfer — electric hinges, door loops, EPTs, voltage drop
-   across the leaf, coordination with `34_Electrical_Power/` and `psec.power`
-7. Fire-rated openings — label requirements, what may not be modified, positive latching,
-   hold-opens, the inspection/testing obligation `[CODE][VERIFY]`
-8. Key management and mechanical security — keying schedules, master key hierarchy, why
-   mechanical security is still the real perimeter
-Plus: the 10-door field exercise, `25_Quizzes/quiz_35_doors.md` + isolated answer key,
-`26_Flashcards/35_doors_hardware.csv`, and `_solutions/` for 06–08 alongside the lessons.
+Scope (from PHASES.md Phase 6):
+1. Camera FOV and focal length
+2. Pixel density and DORI
+3. Bandwidth
+4. Storage and retention
+5. PoE budgets
+6. Voltage drop and conductor selection — **this one now has to reconcile with module 35 lesson
+   06's multi-segment example.** The derivation should cover summing drops across segments of
+   different gauge, because that is the case that actually catches people.
+7. Adversary path and timely detection
 
-**Quality bar:** match `35_Doors_and_Hardware/03_locking_hardware_families.md` and
-`01_Foundations/03_functional_chain.md`. ~3–4k words per lesson.
+**Method:** write each lesson *from* `28_Calculators/tests/test_psec.py`. Every test's expected
+value is a hand calculation waiting to be shown. Include problem sets with answer keys in
+`_answer_keys/` or `_solutions/`.
+
+**Quality bar:** `35_Doors_and_Hardware/03_locking_hardware_families.md` and
+`01_Foundations/03_functional_chain.md`.
+
+**Module shape to match** (module 35 is the reference): overview, lessons, `_solutions/` for
+every lesson written in the same commit, a capstone exercise, a quiz with an isolated key, and a
+validated flashcard deck.
 
 **Before starting:** read `docs/AI_CONTEXT.md` and `docs/HANDOFF.md`.
-Branch: `module/35-doors-hardware-part2` off `main`.
+Branch: `module/32-engineering-math` off `main`.
 
 **Before finishing:**
-1. Run the verification commands in `HANDOFF.md`
+1. Run the verification commands in `HANDOFF.md`, plus the link check
 2. Update `COURSE_PROGRESS.md`, `PHASES.md`, `ENGINEERING_LOG.md`
 3. Commit content + docs together, push, merge to `main`
 
@@ -64,5 +76,5 @@ this). Until then, `22_APP/` and `23_PSP/` must not be built — the provisional
 
 This is not urgent: the roadmap doesn't start the APP track until month 6.
 
-Note: `35_Doors_and_Hardware/00_MODULE_OVERVIEW.md` carries a provisional APP/PSP mapping table
-with the same `[VERIFY]` caveat. It will need correcting at the same time.
+**Two** provisional mapping tables now need correcting when this clears:
+`01_Foundations/00_MODULE_OVERVIEW.md` and `35_Doors_and_Hardware/00_MODULE_OVERVIEW.md`.
