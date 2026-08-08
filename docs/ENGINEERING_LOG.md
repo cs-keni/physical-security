@@ -461,3 +461,5 @@ added, Session 4 carry-overs section, next work item), `CLAUDE.md`, `28_Calculat
 |---|---|
 | `8db0da4` | Module 32 lessons 01–08 with solutions; fix `video.py` binary units |
 | `0e12f21` | Module 32 overview and integrated sizing capstone |
+| `2c2f9ca` | Quiz 32 + key, flashcards, doc updates, link fix |
+| `0c1884c` | Merge `module/32-engineering-math` to `main` |
