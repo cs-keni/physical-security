@@ -107,4 +107,22 @@ the latter as a guard against ever committing real project data.
 | Commit | Scope |
 |---|---|
 | `667c2d1` | Initial import: structure, governance, Module 01, calculators, data model, Project 1, capstone brief |
-| _(this commit)_ | Record commit hashes in the engineering log. A commit cannot contain its own hash; use `git log` for the exact value. |
+| `9aceadf` | Record commit hashes in the engineering log. A commit cannot contain its own hash; use `git log` for the exact value. |
+
+---
+
+## 2026-08-07 — Add repo-root CLAUDE.md
+
+Session 2 opened with `/context-restore`. The saved checkpoint, `docs/HANDOFF.md`, and
+`docs/CURRENT_TASK.md` all agree: foundation complete at `9aceadf`, working tree clean, next
+work item is `35_Doors_and_Hardware/` lessons 01–07.
+
+### Change
+Added `CLAUDE.md` at the repo root. It did not exist — agent context lived only in `docs/`,
+which meant an agent had to be told where to look before it knew where to look. The file
+carries the read-first order, the conventions that must not drift, the verification commands,
+and a gstack skill-routing section.
+
+No content or code changed. Test suite untouched and still the authority on the calculators.
+
+**Commit:** see `git log` — this entry ships in the same commit as the file it describes.
