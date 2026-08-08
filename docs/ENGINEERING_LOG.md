@@ -320,3 +320,144 @@ renumbered, link-check procedure, next work item).
 | `fe34d21` | Record Session 2 commit hashes in engineering log |
 | `e3c2aca` | Module 35 lessons 06–08, capstone survey, quiz + key, flashcards, doc updates |
 | `f422074` | Merge `module/35-doors-hardware-part2` to `main` |
+
+---
+
+## 2026-08-08 — Session 4: Module 32 Engineering Math (complete)
+
+Branch `module/32-engineering-math` off `main` at `b609dda`. ~55k words across 19 files. Second
+complete module in the repo, and the first written as a **derivation record for working code**.
+
+### Code changed — two real defects in `psec`, both found by hand
+
+This is the headline of the session. `28_Calculators/` had a green suite of 66 tests. Working the
+units by hand to write lesson 04 found a defect the suite could not see.
+
+**1. `video.stream_gb_per_day(decimal_gb=False)` divided decimal megabytes by 1024.**
+
+A bitrate is decimal — 5.0 Mbps is 5 × 10⁶ bits per second — so the intermediate megabytes are
+10⁶ bytes. Converting those to gibibytes requires dividing by **2³⁰/10⁶ = 1073.741824**, not by
+1024. The consequence: the function reported the decimal/binary gap at TB scale as **4.86%** when
+the true figure is **9.95%** — the *exact* "classic ~10% error at the TB scale" its own docstring
+warned about. **The code contradicted its own comment.**
+
+Why no test caught it: the only test on that path asserted `binary < decimal`, which is true
+whichever divisor you use. An assertion of the form `a < b` passes for the wrong reason far more
+often than it fails for the right one.
+
+Fixed in `28_Calculators/psec/video.py` with named constants (`MB_TO_GB_DECIMAL`,
+`MB_TO_GIB_BINARY`, `GB_TO_TB_DECIMAL`, `GIB_TO_TIB_BINARY`) so the two conversion systems cannot
+be silently mixed again, plus two tests:
+
+- `test_binary_units_are_true_gibibytes`
+- `test_decimal_binary_gap_at_tb_scale_is_about_ten_percent` — asserts the ratio against
+  `2**40/1e12`, **a value derived from the definition rather than captured from a run**. A test
+  that records what the code did cannot detect that the code was wrong.
+
+**2. `pps.compare_interventions` docstring said "three levers" and returns four.** Fixed, and the
+module-32 cross-reference added.
+
+**Test count 66 → 68.** Every doc quoting 66 was updated except the historical session entries in
+this log, which record what was true at the time and should not be rewritten.
+
+### Content written
+
+- **`32_Engineering_Math/00_MODULE_OVERVIEW.md`** — lesson table with what each derives, how to
+  study, eight load-bearing ideas, cross-references, provisional APP/PSP mapping with the
+  `[VERIFY]` caveat, and a section documenting the `video.py` defect as the module's own argument
+  for existing.
+- **Lessons 01–08 with `_solutions/` for every one**, written in the same commit:
+  camera FOV and focal length, pixel density and DORI, bandwidth, storage and retention, PoE
+  budgets and switch capacity, voltage drop and conductor selection, battery and supply sizing,
+  adversary path and timely detection.
+- **`_exercises/integrated_sizing.md`** + `_solutions/integrated_sizing_reference.md` — the
+  capstone. One fictional 3PL distribution centre sized end to end through all eight lessons.
+- **`25_Quizzes/quiz_32_engineering_math.md`** + isolated answer key — 30 questions, 52 points,
+  16 concept / 6 scenario / 8 calculation.
+- **`26_Flashcards/32_engineering_math.csv`** — 80 cards, validated.
+
+### Design decisions worth recording
+
+- **Deviated from PHASES.md's lesson list, deliberately.** Planned item 08 was "Rack, port, and
+  capacity planning"; it was folded into `05_poe.md` because port count, oversubscription, and
+  spare-port policy **are** the `PoESwitch` checks, and separating them from the power budget
+  would have split two constraints whose entire lesson is that they bind independently. Lesson 08
+  became the adversary path derivation, because `psec/pps.py` had substantial tested math with no
+  derivation anywhere in the repo — leaving it underived would have left the module incomplete
+  against its own stated purpose. Rationale recorded in `PHASES.md` Phase 6.
+- **Every numeric value was produced by running `psec` and transcribing it.** Module 35 established
+  this; module 32 makes it a hard rule, since a hand-written number in a lesson about code is a
+  future drift bug. It is also what surfaced both defects above.
+- **Problem sets are built around traps, deliberately.** Lesson 02 P2.6 has a row where the
+  arithmetic passes and a 48° depression angle has thrown the face away. Lesson 06 P6.4 **reverses
+  module 35's conclusion** — there the transfer dominated, here the home run does — so "always
+  check the transfer" is shown to be a habit rather than a rule. Lesson 08 P8.2 asks for a
+  detection point that comes out negative.
+- **Lesson 06 carries module 35's multi-segment case forward**, as `HANDOFF.md` required: summing
+  `L/CM` across segments of different gauge, opening with the same worked example (200 ft 12 AWG +
+  6 ft 24 AWG at 2.8 A → 20.72 V, fails).
+- **The capstone fails four times before it works, by construction.** The gate camera misses
+  identify by two DORI classes; the warehouse cameras miss observe by 10.5%; a single switch is
+  over its PoE budget by 99.4 W *and* short on spare ports; and the cage conductor delivers
+  10.068 V against a 10.2 V minimum. The adversary path is then not timely, and — the sharpest
+  result in the module — **adding the obvious fence detection layer still fails**, because the
+  60 s assessment delay consumes more than half the 135 s detection budget. The fix that works
+  costs no hardware at all. The exercise tests noticing that an answer is unacceptable, not
+  computing it.
+- **The capstone reference includes a worked basis-of-design memo**, because the deliverable a
+  junior engineer is actually judged on is the memo, not the spreadsheet.
+- **A correction made mid-session:** lesson 07 originally stated that adding the derate factors
+  instead of multiplying under-sizes a battery by ~6%. It is **4.167%** (1.5625 vs 1.5). Fixed in
+  the body and in the common-mistakes list, and the capstone now asks the learner to compute it
+  and then say honestly that at that site it changes nothing.
+
+### Verification
+
+```
+python3 28_Calculators/tests/test_psec.py                → Ran 68 tests, OK
+python3 28_Calculators/demo.py                           → clean
+python3 16_Automation/data_model/validate.py <sample> CD → 25 errors / 5 warnings / 4 info
+                                                           (unchanged baseline)
+26_Flashcards/01_foundations.csv                         → 58 cards, 3 fields, 0 malformed
+26_Flashcards/35_doors_hardware.csv                      → 77 cards, 3 fields, 0 malformed
+26_Flashcards/32_engineering_math.csv                    → 80 cards, 3 fields, 0 malformed
+Repo-wide link check                                     → 11 broken, all pre-existing in
+                                                           01_Foundations and 30_Capstones
+```
+
+The link check found one new break introduced last session —
+`32_Engineering_Math/_solutions/08_adversary_path_solutions.md` linked to `../01_Foundations/`
+from inside `_solutions/`, one level too shallow. Fixed. The remaining 11 are the known
+`01_Foundations/_solutions/` debt plus `30_Capstones/.../_reference_solution/`, both tracked in
+`COURSE_PROGRESS.md`.
+
+### Docs updated
+
+`COURSE_PROGRESS.md` (module 32 → ✅, quiz and flashcard rows, verified-artifacts rows, cert
+coverage, known issue 3 resolved and issue 7 added for the `psec` defects, next work item
+renumbered), `PHASES.md` (Phase 6 → ✅ COMPLETE with the lesson-list deviation and both defects
+recorded), `docs/CURRENT_TASK.md`, `docs/HANDOFF.md` (two architectural decisions amended, one
+added, Session 4 carry-overs section, next work item), `CLAUDE.md`, `28_Calculators/README.md`,
+`16_Automation/README.md` (all test counts 66 → 68).
+
+### Follow-ups
+
+- **`01_Foundations/_solutions/` is now the oldest and only remaining solution debt** — 4 files
+  plus `vocabulary.md` and `checklist_foundations.md`. It is the next work item.
+- **`01_Foundations/03_functional_chain.md` links to `28_Calculators/timely_detection.py`**, which
+  no longer exists; it was superseded by `psec/pps.py`. Fix it when closing the module 01 debt,
+  and point it at `32_Engineering_Math/08_adversary_path.md`, which now derives it.
+- **`03_Video_Surveillance/` is mathematically unblocked.** Module 32 lessons 01–04 supply the
+  optics, bandwidth, and storage derivations, so that module can cover the imaging chain, camera
+  selection, and design judgment without re-deriving anything.
+- **Three** provisional APP/PSP mapping tables now need correcting when the ASIS block clears.
+- **A testing convention worth adopting repo-wide:** where a figure has a known correct value
+  derivable from a definition, assert against the definition, not against a captured run. The
+  `video.py` defect survived 66 passing tests precisely because no test did this.
+
+### Commit record
+
+| Commit | Scope |
+|---|---|
+| `8db0da4` | Module 32 lessons 01–08 with solutions; fix `video.py` binary units |
+| `0e12f21` | Module 32 overview and integrated sizing capstone |

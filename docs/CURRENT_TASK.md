@@ -1,64 +1,75 @@
 # CURRENT_TASK
 
-**Status:** Session 3 complete. No task in progress.
+**Status:** Session 4 complete. No task in progress.
 
-## Just completed (2026-08-07)
+## Just completed (2026-08-08)
 
-**Module 35 Doors and Hardware is finished.** Sessions 2 and 3 together produced ~58k words
-across 21 files. It is the first complete module in the repo — 8 lessons, solutions for every
-lesson, a capstone field exercise, a quiz with an isolated key, and a validated flashcard deck.
+**Module 32 Engineering Math is finished.** ~55k words across 19 files on branch
+`module/32-engineering-math`. It is the second complete module in the repo, and the first whose
+entire purpose is to be the **derivation record for working code** — `test_psec.py`'s own
+docstring says its expected values are hand-computed in these lessons, so all 68 tests now trace
+to a derivation written out in prose.
 
-Session 3 added, on branch `module/35-doors-hardware-part2`:
+- **01–08 lessons** with `_solutions/` for every one, written in the same commit: camera FOV and
+  focal length, pixel density and DORI, bandwidth, storage and retention, PoE budgets and switch
+  capacity, voltage drop and conductor selection, battery and supply sizing, adversary path and
+  timely detection.
+- **`_exercises/integrated_sizing.md`** — the module capstone. One fictional 3PL distribution
+  centre sized end to end through all eight lessons: cameras → FOV → PPF → bitrate → storage →
+  PoE → voltage drop → battery → adversary path. **The design fails four times before it works**,
+  which is the point: the exercise tests noticing that an answer is unacceptable, not computing
+  it. Full reference solution in `_solutions/integrated_sizing_reference.md`, including a worked
+  basis-of-design memo.
+- **`25_Quizzes/quiz_32_engineering_math.md`** + isolated answer key (30 questions, 52 points,
+  weighted toward calculation).
+- **`26_Flashcards/32_engineering_math.csv`** — 80 cards, validated.
 
-- **06 — Electrified Hardware and Power Transfer:** the four transfer methods, conductor
-  budgeting, and the voltage-drop calculation carried *through* the transfer. Deliberately
-  continues lesson 03's worked example — the same opening, and 12 AWG stops being the answer
-  once the last six feet are counted.
-- **07 — Fire-Rated Openings:** the assembly concept, labels and what voids them, the four
-  behaviors, and the derivation of every rated-opening hardware restriction from "a fire door
-  must latch."
-- **08 — Key Management and Mechanical Security:** the key hierarchy, rekey triggers, the three
-  controls that do the work, construction key turnover, and the no-override decision.
-- `_solutions/` for 06–08 plus a reference findings set for the survey.
-- **`_exercises/10_door_survey.md`** — the module capstone: survey ten real openings against a
-  full recording template and write a ranked findings memo.
-- **`25_Quizzes/quiz_35_doors_hardware.md`** + isolated answer key (30 questions).
-- **`26_Flashcards/35_doors_hardware.csv`** — 77 cards, validated.
+**Two real `psec` defects were found by working the units by hand**, both fixed with new tests
+(**66 → 68**). Details in `docs/HANDOFF.md` under "Session 4 carry-overs" and in
+`COURSE_PROGRESS.md` known issue 7. The one worth remembering: `stream_gb_per_day(decimal_gb=
+False)` divided decimal megabytes by 1024, halving the reported decimal/binary gap — the exact
+error its own docstring warned about, invisible to a test asserting only `binary < decimal`.
+
+**Deliberate deviation from PHASES.md's lesson list**, recorded with rationale in Phase 6:
+rack/port/capacity planning folded into `05_poe.md`, and lesson 08 became the adversary path
+derivation because `psec/pps.py` had substantial tested math and no derivation anywhere.
 
 ## Next task
 
-**`32_Engineering_Math/` lessons 01–07.**
+**`01_Foundations/_solutions/`** — the 4 missing exercise solution files, plus `vocabulary.md`
+and `checklist_foundations.md`.
 
-Why this next: `28_Calculators/` is tested and working but the derivations that justify it are
-unwritten, so a learner can use a calculator they don't understand — which the repo's own
-architecture explicitly separated modules 28 and 32 to prevent. Module 35 lessons 03 and 06 now
-lean on `psec.power` in three worked examples and forward-reference `32_Engineering_Math/` for
-the derivations, so the gap is visible to a learner following the roadmap.
+Why this next: it is the repo's oldest open debt, it is small, and closing it makes "every
+lesson's solutions exist" true repo-wide for the first time. Modules 32 and 35 both adopted the
+write-solutions-in-the-same-commit convention; module 01 predates it and is the only remaining
+violation.
 
-Scope (from PHASES.md Phase 6):
-1. Camera FOV and focal length
-2. Pixel density and DORI
-3. Bandwidth
-4. Storage and retention
-5. PoE budgets
-6. Voltage drop and conductor selection — **this one now has to reconcile with module 35 lesson
-   06's multi-segment example.** The derivation should cover summing drops across segments of
-   different gauge, because that is the case that actually catches people.
-7. Adversary path and timely detection
+Scope:
+1. `_solutions/02_risk_vocabulary_solutions.md`
+2. `_solutions/03_functional_chain_solutions.md`
+3. `_solutions/04_zones_solutions.md`
+4. `_solutions/05_cpted_solutions.md`
+5. `_solutions/06_requirements_solutions.md`
+6. `_solutions/07_systems_failure_solutions.md`
+7. `vocabulary.md` and `checklist_foundations.md` (linked from the module overview)
 
-**Method:** write each lesson *from* `28_Calculators/tests/test_psec.py`. Every test's expected
-value is a hand calculation waiting to be shown. Include problem sets with answer keys in
-`_answer_keys/` or `_solutions/`.
+Also fix while in there: `01_Foundations/03_functional_chain.md` links to
+`28_Calculators/timely_detection.py`, which no longer exists — it was superseded by `psec/pps.py`.
+Point it at `psec/pps.py` and at `32_Engineering_Math/08_adversary_path.md`, which now derives it.
 
-**Quality bar:** `35_Doors_and_Hardware/03_locking_hardware_families.md` and
+**After that:** `03_Video_Surveillance/` lessons 01–11. Module 32 lessons 01–04 now supply all of
+its math, so those lessons can cover the imaging chain, camera selection, and design judgment
+without re-deriving anything.
+
+**Quality bar:** `32_Engineering_Math/06_voltage_drop.md`,
+`35_Doors_and_Hardware/03_locking_hardware_families.md`, and
 `01_Foundations/03_functional_chain.md`.
 
-**Module shape to match** (module 35 is the reference): overview, lessons, `_solutions/` for
-every lesson written in the same commit, a capstone exercise, a quiz with an isolated key, and a
-validated flashcard deck.
+**Module shape to match** (32 and 35 are the reference): overview, lessons, `_solutions/` for
+every lesson written in the same commit, a capstone exercise with a reference solution, a quiz
+with an isolated key, and a validated flashcard deck.
 
 **Before starting:** read `docs/AI_CONTEXT.md` and `docs/HANDOFF.md`.
-Branch: `module/32-engineering-math` off `main`.
 
 **Before finishing:**
 1. Run the verification commands in `HANDOFF.md`, plus the link check
@@ -76,5 +87,6 @@ this). Until then, `22_APP/` and `23_PSP/` must not be built — the provisional
 
 This is not urgent: the roadmap doesn't start the APP track until month 6.
 
-**Two** provisional mapping tables now need correcting when this clears:
-`01_Foundations/00_MODULE_OVERVIEW.md` and `35_Doors_and_Hardware/00_MODULE_OVERVIEW.md`.
+**Three** provisional mapping tables now need correcting when this clears:
+`01_Foundations/00_MODULE_OVERVIEW.md`, `35_Doors_and_Hardware/00_MODULE_OVERVIEW.md`, and
+`32_Engineering_Math/00_MODULE_OVERVIEW.md`.

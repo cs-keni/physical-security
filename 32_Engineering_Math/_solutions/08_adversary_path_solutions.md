@@ -94,7 +94,7 @@ you would place it as early as you can **assess**. The binding constraint on mov
 assessment, not detection: a fence sensor at t = 45 s detects beautifully and, without a camera
 that covers that zone and is automatically called up on alarm, produces nuisance alarms that
 destroy the system's credibility. See
-[`../01_Foundations/03_functional_chain.md`](../01_Foundations/03_functional_chain.md).
+[`../../01_Foundations/03_functional_chain.md`](../../01_Foundations/03_functional_chain.md).
 
 **So the real constraint is: detect as early as you can assess, and no earlier.**
 
