@@ -222,3 +222,95 @@ renumbered, next work item).
 
 As in Session 1, the content commit cannot contain its own hash; it is recorded here in the
 follow-up commit.
+
+---
+
+## 2026-08-07 — Session 3: Module 35 lessons 06–08 and assessment material
+
+Branch `module/35-doors-hardware-part2`. Closes Phase 5. **Module 35 is the first complete
+module in the repo.**
+
+### What shipped
+
+| File | Words | Content |
+|---|---|---|
+| `06_electrified_hardware_power_transfer.md` | 3,213 | Four transfer methods, conductor budgeting, voltage drop *through* the transfer, flex fatigue, factory prep |
+| `07_fire_rated_openings.md` | 3,358 | The assembly concept, labels and what voids them, the four behaviors, what security scope gets wrong, the NFPA 80 obligation |
+| `08_key_management.md` | 3,890 | Key hierarchy and its costs, rekey triggers, the three controls, construction keying, the no-override decision, attack classes and rated countermeasures |
+| `_solutions/06–08` | 8,300 | Worked answers for every E-numbered exercise |
+| `_exercises/10_door_survey.md` | 1,766 | Module capstone: 10-opening survey with a full recording template and a self-assessment rubric |
+| `_solutions/10_door_survey_reference.md` | 2,824 | Reference findings set against a fictional building, with a worked findings memo |
+| `25_Quizzes/quiz_35_doors_hardware.md` | 1,186 | 30 questions: 20 concept, 6 scenario, 4 calculation |
+| `25_Quizzes/_answer_keys/quiz_35_answers.md` | 3,272 | Full explanations for all 30 |
+| `26_Flashcards/35_doors_hardware.csv` | — | 77 cards, validated |
+
+**Module 35 total across Sessions 2–3: ~58,000 words, 21 files.**
+
+### Decisions made
+
+- **Lesson 06's worked example deliberately continues lesson 03's.** Same opening, same 2.8 A ELR
+  device, same 200 ft run — and the 12 AWG conductor that passed at 21.79 V in lesson 03 lands at
+  **20.72 V** once six feet of 24 AWG transfer is added, back under the floor. Continuity teaches
+  better than a fresh contrived example, and it makes the omission memorable rather than abstract.
+  Recorded in `HANDOFF.md` as a convention.
+- **E6.2 was built to produce an uncomfortable answer.** At 3.2 A running, 10 AWG barely passes;
+  at the 8 A inrush, *no* home run gauge works and the only fixes are relocating the supply or
+  changing the device. The exercise is designed so that iterating on conductor size fails, which
+  is the actual engineering lesson — when the arithmetic gets ugly, question the device selection.
+- **Lesson 07 is structured as a derivation, not a list.** Every rated-opening hardware
+  restriction (no mag locks, no dogging, fail secure only, stair re-entry releases the trim) is
+  derived from "a fire door must latch." E7.6 tests whether that compression happened. A learner
+  who memorized four facts will list four facts; one who understood derives all four in one pass.
+- **Lesson 08 leads with the framing that reduces our own scope** — key control is a policy
+  project, not a procurement, and it bounds the value of the whole access control system.
+  E8.4 makes the learner write that recommendation out. This is `AI_CONTEXT.md`'s "say the
+  uncomfortable thing" applied where it costs something.
+- **The 10-door survey is framed as a deliverable, not homework.** Junior engineers are handed
+  door surveys in their first month; the exercise teaches the recording discipline (notably
+  `UNKNOWN — [why]` over blanks) that makes a survey usable by someone who wasn't there.
+- **The survey reference uses a fictional building**, labelled synthetic per `AI_CONTEXT.md` hard
+  rule 4. Its three ranked findings are chosen so that the most common wrong answer — "add a card
+  reader to the IDF closet" — is named explicitly as the failure to avoid.
+- **Defensive depth held throughout lesson 08.** Attack classes are named and immediately paired
+  with the rated countermeasure. No procedures, no technique. The table's real teaching point is
+  that four of eight classes are answered by a rated cylinder and the biggest one is answered by
+  a *policy*.
+
+### Verification
+
+```
+python3 28_Calculators/tests/test_psec.py                → Ran 66 tests, OK
+python3 28_Calculators/demo.py                           → clean
+python3 16_Automation/data_model/validate.py <sample> CD → 25 errors / 5 warnings / 4 info
+                                                           (unchanged baseline)
+26_Flashcards/01_foundations.csv                         → 58 cards, 3 fields, 0 malformed
+26_Flashcards/35_doors_hardware.csv                      → 77 cards, 3 fields, 0 malformed
+Link check, 21 module-35 files                           → all relative targets resolve
+```
+
+No code changed this session. All numeric values in lesson 06, its solutions, and quiz questions
+27–29 were captured from live runs of `psec.power` (`power_supply_sizing`,
+`battery_ah_required`, `voltage_drop_v`, `voltage_at_load_v`).
+
+A **link-check script** was added to `HANDOFF.md`'s verification block. Cross-module references
+are easy to get wrong and nothing else in the repo catches them.
+
+### Docs updated
+
+`COURSE_PROGRESS.md` (module 35 → ✅, known issues collapsed from 7 to 6 and renumbered, next
+work item, verified-artifacts rows, cert coverage), `PHASES.md` (Phase 5 → ✅ COMPLETE),
+`docs/CURRENT_TASK.md`, `docs/HANDOFF.md` (state, three new architectural decisions, debts
+renumbered, link-check procedure, next work item).
+
+### Follow-ups
+
+- **`32_Engineering_Math/` is now the most visible gap.** Module 35 leans on `psec.power` in
+  three worked examples and forward-references module 32 for the derivations. Its voltage-drop
+  lesson must cover **summing drops across segments of different gauge**, because lesson 06
+  established that as the case that catches people.
+- `01_Foundations/_solutions/` remains the oldest open debt — 4 files plus `vocabulary.md` and
+  `checklist_foundations.md`. Small, and closing it makes "every lesson's solutions exist" true
+  repo-wide.
+- Two provisional APP/PSP mapping tables now need correcting when the ASIS block clears.
+
+**Commit:** see `git log` — this entry ships in the same commit as the content it describes.
