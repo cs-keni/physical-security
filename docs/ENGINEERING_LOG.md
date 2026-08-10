@@ -704,3 +704,5 @@ the check before committing remains non-negotiable.
 | `b6e27c5` | Lessons 06–08 (bandwidth, storage, VMS architecture) |
 | `6048774` | Lessons 09–11 (placement, retail case study, analytics) |
 | `1de601c` | Capstone, Quiz 03 + key, flashcard deck |
+| `f24945d` | Doc updates, link fixes, Phase 7 closed |
+| `c3ac8b1` | Merge `module/03-video-surveillance` to `main` |
