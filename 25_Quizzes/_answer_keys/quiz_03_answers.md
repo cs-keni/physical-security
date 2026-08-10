@@ -245,5 +245,5 @@ Three questions carry the module's core ideas, and getting them right matters mo
 - **C8(c)** — that a 95% improvement does not rescue a low-base-rate alarm system.
 - **A12** — the placement rule, which governs every design decision in the module.
 
-**Next:** [the park-and-ride garage capstone](../03_Video_Surveillance/_exercises/garage_design.md),
+**Next:** [the park-and-ride garage capstone](../../03_Video_Surveillance/_exercises/garage_design.md),
 which is built to make several of the instincts this quiz rewards produce the wrong answer.

@@ -252,7 +252,7 @@ lighting separately and small so it is not lost in a value-engineering exercise.
 
 All three comfortably exceed 76 ppf with large margin, at angles well inside 30°. **Specify 10 ft
 where lobby depth allows** — 2.5× margin, and margin is the tolerance budget for everything not
-modelled ([lesson 04](04_dori_and_pixel_density.md) E4.3).
+modelled ([lesson 04](../04_dori_and_pixel_density.md) E4.3).
 
 **On the 8 ft soffit — the answer to brief question 2.** The depression angle is **not** a problem
 here, and that surprises people. A low soffit forces a low mount, and a low mount is exactly what

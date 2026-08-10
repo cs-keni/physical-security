@@ -4,7 +4,7 @@
 This file is the source of truth for what has been *generated*. It is not a study tracker —
 that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
-**Last updated:** 2026-08-08 (Session 5)
+**Last updated:** 2026-08-09 (Session 6)
 
 ---
 
@@ -58,7 +58,7 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 |---|---|---|---|---|
 | 01 | Foundations | ✅ | Overview + 7 full lessons (~28k words): what PSE is, risk vocabulary, D3ACR + timely detection, defense in depth/zones, CPTED, requirements engineering, systems & failure thinking. Exercises embedded in each lesson, with `_solutions/` for all 6 sets. Plus `vocabulary.md` (full glossary + disambiguation drill), `checklist_foundations.md` (the reasoning checklist), and `exercises.md` — index plus the **Ashford Public Library capstone**, one site through all 7 lessons, with a reference solution. ~37k words added in Session 5. | — |
 | 02 | Risk Assessment | ⬜ | — | 7 lessons: methodology, asset characterization, threat/DBT, VA & site surveys, risk methods, adversary path analysis, master planning |
-| 03 | Video Surveillance | ⬜ | — | 11 lessons. **Highest priority.** Optics math is already implemented in `psec.optics` — the lessons must derive it |
+| 03 | Video Surveillance | ✅ | Overview + 11 full lessons (~76k words) with `_solutions/` for every one: the imaging chain, optics/aperture/DOF, sensors & low light, DORI in practice, form factors, compression & bandwidth, storage & retention, VMS architecture, camera placement, the retail case study, analytics & health monitoring. Plus the **Cedar Junction park-and-ride capstone** with a full reference solution, Quiz 03 + isolated key, and 114 flashcards. **The largest module in the academy.** It deliberately does *not* re-derive module 32's math — see the division-of-labour table in its overview | — |
 | 04 | Access Control | ⬜ | — | 11 lessons. SOO writing is partially demonstrated in the Project 1 reference solution |
 | 05 | Intrusion Detection | ⬜ | — | 6 lessons |
 | 06 | Perimeter Security | ⬜ | — | 7 lessons incl. lighting (promoted to major topic per gap analysis) |
@@ -80,8 +80,8 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | 22 | APP | ⬜ | — | **Verify domains against the official ASIS handbook first** |
 | 23 | PSP | ⬜ | — | Same caveat |
 | 24 | CPP Roadmap | ⬜ | — | Roadmap only |
-| 25 | Quizzes | 🟡 | `quiz_01_foundations.md`, `quiz_35_doors_hardware.md`, `quiz_32_engineering_math.md` (30 Q each) + full answer keys with explanations | Quizzes for the remaining modules; cumulative reviews |
-| 26 | Flashcards | 🟡 | `01_foundations.csv` (58), `35_doors_hardware.csv` (77), `32_engineering_math.csv` (80) — 215 cards, CSV-validated, Anki-ready | Decks for all other modules |
+| 25 | Quizzes | 🟡 | `quiz_01_foundations.md`, `quiz_35_doors_hardware.md`, `quiz_32_engineering_math.md`, `quiz_03_video_surveillance.md` (30 Q each) + full answer keys with explanations | Quizzes for the remaining modules; cumulative reviews |
+| 26 | Flashcards | 🟡 | `01_foundations.csv` (58), `35_doors_hardware.csv` (77), `32_engineering_math.csv` (80), `03_video_surveillance.csv` (114) — 329 cards, CSV-validated, Anki-ready | Decks for all other modules |
 | 27 | Labs | 🟡 | Project 1 brief + full senior reference solution | Projects 2–7 |
 | 28 | Calculators | ✅ | `psec` package: `optics`, `video`, `power`, `pps`. `demo.py` with 8 worked examples. **68 tests, all passing.** `README.md` documenting assumptions and non-goals | Rack/port planner; cost model |
 | 29 | Templates | ⬜ | — | Schedules, trackers, BoD, SOO templates |
@@ -108,6 +108,9 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 | `26_Flashcards/01_foundations.csv` | CSV-parsed: 58 cards, 3 fields, 0 malformed |
 | `26_Flashcards/35_doors_hardware.csv` | CSV-parsed: 77 cards, 3 fields, 0 malformed |
 | `26_Flashcards/32_engineering_math.csv` | CSV-parsed: 80 cards, 3 fields, 0 malformed |
+| `26_Flashcards/03_video_surveillance.csv` | CSV-parsed: **114 cards**, 3 fields, 0 malformed |
+| `03_Video_Surveillance/` internal links | 25 files link-checked; all relative targets resolve |
+| `03_Video_Surveillance/` worked values | Every number reproduced by running `psec.optics`, `psec.video`, and `psec.pps`; DOF and exposure-budget arithmetic shown in full in-lesson (not in `psec` — see known issue 8) |
 | `35_Doors_and_Hardware/` internal links | 21 files link-checked; all relative targets resolve |
 | `32_Engineering_Math/` internal links | 19 files link-checked; all relative targets resolve |
 | `32_Engineering_Math/` worked values | Every number reproduced by running `psec` directly; capstone model in the reference solution |
@@ -150,6 +153,15 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
    broken link repo-wide is `30_Capstones/data_center_campus/` → `_reference_solution/`**, which
    is issue 4. The convention — write solutions in the same commit as the lessons that link to
    them — now holds for every written module and must hold for every module from here.
+8. **`psec` has no depth-of-field or motion-blur functions, and Module 03 needs both.** Writing
+   module 03 required DOF (hyperfocal, near/far limits) in lesson 02 and motion blur
+   (`smear_px = speed × exposure × PPF`) in lessons 01 and 03. Both are geometric, both are
+   testable against hand calculations, and both belong in `psec.optics`. **They were deliberately
+   not added**, because this repo's architecture is that `32_Engineering_Math/` derives what
+   `28_Calculators/` implements — so adding them properly means writing the derivations in module
+   32 first, which would reopen a module marked complete. Until then the arithmetic is shown in
+   full in the module 03 lessons so it can be checked by hand. Logged as a follow-on work item.
+
 7. **Two defects in `psec` were found by hand-checking units while writing Module 32, and both
    are fixed.** (a) `video.stream_gb_per_day(decimal_gb=False)` divided decimal megabytes by
    1024 instead of 2³⁰/10⁶, halving the reported decimal/binary gap — the exact error its own
@@ -165,15 +177,19 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 
 **In priority order** — each is sized to be completable and useful on its own:
 
-1. **`03_Video_Surveillance/` lessons 01–11.** The largest technical module; roadmap months
-   3–4 depend on it. **Module 32 lessons 01–04 now supply all of its math**, so these lessons
-   can cover the imaging chain, selection, and design judgment without re-deriving anything.
-2. **`04_Access_Control/` lessons 01–11.** Module 35 lessons 03, 04, and 06 hand off to this
-   one directly — offline controller behavior, REX strategy, and reader-in/reader-out are all
-   raised there and resolved here.
-3. **`02_Risk_Assessment/` lessons 01–07.** Module 32 lesson 08 derives the path
-   arithmetic; this module supplies the method for finding the paths worth analysing.
-4. **Projects 2 and 3** (`27_Labs/`), following the Project 1 brief/solution pattern exactly.
+1. **`04_Access_Control/` lessons 01–11.** Now the highest priority. Module 35 lessons 03, 04, and
+   06 hand off to this one directly — offline controller behavior, REX strategy, and
+   reader-in/reader-out are all raised there and resolved here. Module 03 lesson 08 also
+   forward-references it for PACS/video integration.
+2. **`02_Risk_Assessment/` lessons 01–07.** Module 32 lesson 08 derives the path
+   arithmetic; this module supplies the method for finding the paths worth analysing. Module 03's
+   capstone leans on it too — the timeliness analysis there is the technique this module teaches
+   generally.
+3. **Projects 2 and 4** (`27_Labs/`) — small office camera design and retail surveillance design.
+   **Both are now fully unblocked** by module 03 and follow the Project 1 brief/solution pattern.
+   Project 3 (access control) follows module 04.
+4. **`psec.optics` additions: depth of field and motion blur.** Module 03 needed both routinely and
+   neither exists. See known issue 8 — the derivations belong in module 32 first.
 5. **`30_Capstones/data_center_campus/_reference_solution/`** — the last dangling link in the
    repo, and the only remaining solution debt.
 
@@ -181,9 +197,14 @@ that is [`00_Roadmap/progress_tracker.md`](00_Roadmap/progress_tracker.md).
 contains actual instructional material — worked examples, real numbers, exercises with
 solutions — not headings.
 
-**Modules 01, 32, and 35 are the current quality bar for a complete module:** overview, lessons,
+**Modules 01, 03, 32, and 35 are the current quality bar for a complete module:** overview, lessons,
 solutions for every lesson, a capstone exercise with a reference solution, a quiz with an
 isolated key, and a validated flashcard deck. Match that shape.
+
+**Module 03 adds one convention worth keeping:** where a module *applies* math another module
+derives, it says so explicitly in a **division-of-labour table** in its overview, links to the
+derivation for every formula, and does not restate it. This is what kept a 76k-word module from
+duplicating module 32, and it is the pattern for module 04 against module 35.
 
 **Module 32 adds one convention worth keeping:** where a module has code behind it, every
 numeric value in the prose is produced by *running* that code and transcribing the result — never

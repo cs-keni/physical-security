@@ -90,7 +90,7 @@ identify:  raw  50.53 ft → effective 42.95 ft → ceil(90/42.95) = 3 cameras
 
 **(d) When 8 MP is the wrong answer even with fewer cameras.**
 
-Whenever the dock is **light-limited at night**. From [lesson 03](03_sensors_and_low_light.md),
+Whenever the dock is **light-limited at night**. From [lesson 03](../03_sensors_and_low_light.md),
 2 MP → 8 MP on a fixed sensor costs exactly **2.00 stops**, and 4 MP → 8 MP costs **1.03 stops**.
 A dock apron is an outdoor, poorly lit, high-motion scene — vehicles and people moving, often at
 speed, often at night — which is the exact profile where the exposure budget binds. Trading a stop

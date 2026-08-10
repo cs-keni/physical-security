@@ -53,6 +53,7 @@ is information, a falsely checked box is a lie you will pay for in a design revi
 ## Stage II — Working Competency (Months 3–5)
 
 ### 03_Video_Surveillance
+*(All lessons written. Boxes below are YOUR study progress, not build status.)*
 - [ ] 01 — The Imaging Chain (light → operator)
 - [ ] 02 — Optics: Focal Length, FOV, Aperture, DOF
 - [ ] 03 — Sensors, Exposure, WDR, Low Light
@@ -64,6 +65,7 @@ is information, a falsely checked box is a lie you will pay for in a design revi
 - [ ] 09 — Camera Placement Engineering
 - [ ] 10 — Retail Case Study
 - [ ] 11 — Analytics and Health Monitoring
+- [ ] Capstone — Cedar Junction park-and-ride design
 - [ ] Quiz 03 — score: _____
 
 ### 04_Access_Control

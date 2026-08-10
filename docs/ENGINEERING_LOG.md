@@ -590,3 +590,117 @@ decision amended, Session 5 carry-overs, next work item).
 | `3954145` | Module 01 solutions for lessons 06–07 |
 | `3faed54` | vocabulary.md, checklist_foundations.md, exercises.md + capstone, doc updates |
 | `426f5fc` | Merge `module/01-foundations-solutions` to `main` |
+
+---
+
+## 2026-08-09 — Session 6: Module 03 Video Surveillance (complete)
+
+Branch `module/03-video-surveillance`. **~76k words across 25 files** — the largest module in the
+academy — plus Quiz 03 and a 114-card deck. Phase 7 complete; roadmap months 3 and 4 unblocked.
+
+### What was written
+
+`03_Video_Surveillance/`: overview + 11 lessons, each with a `_solutions/` file written in the
+**same commit** as the lesson linking to it. Plus the Cedar Junction park-and-ride capstone with a
+full reference solution, `25_Quizzes/quiz_03_video_surveillance.md` (30 Q / 54 pts) with an
+isolated key, and `26_Flashcards/03_video_surveillance.csv` (114 cards, 0 malformed).
+
+Lessons: 01 imaging chain · 02 optics and lenses · 03 sensors and low light ·
+04 DORI and pixel density · 05 camera form factors · 06 compression and bandwidth ·
+07 storage and retention · 08 VMS architecture · 09 camera placement · 10 retail case study ·
+11 analytics and health monitoring.
+
+### The governing decision
+
+**Module 32 derives the math; module 03 applies it and re-derives nothing.** The overview opens
+with a **division-of-labour table** — *"why is `W = D·w/f` true?"* → module 32; *"should this
+camera be looking there at all?"* → module 03. Every lesson needing a formula links out and states
+only the result. Without this the module would have duplicated roughly 40% of module 32.
+
+This is now a repo convention, recorded in `HANDOFF.md`, and **module 04 should apply it against
+module 35.**
+
+### Three results that inverted the expected answer
+
+Each was planned as one thing, computed as another, and the computed version became the lesson.
+
+1. **The vestibule camera passes the geometry at 2.11× the identify threshold and is still
+   unusable at night.** A 1/30 s shutter smears a walking subject across **23.5 px** against a
+   **33.4 px** eye-to-eye distance. Generalised in the solutions: **the smear-to-detail ratio is
+   invariant under pixel density** — 0.704 at both 12 ft and 22 ft, because both scale with PPF and
+   the ratio cancels. Resolution cannot fix blur; only a faster shutter (light) or a slower subject
+   (a chokepoint) can. This is the module's most transferable result.
+2. **Camera count is a ceiling function.** An 8 MP upgrade needs the *same* count as 4 MP on a
+   90 ft elevation at both recognise and identify — the extra pixels never cross an integer
+   boundary, so they are wasted while still costing 1.03 stops of light and double the storage.
+   Vendors quote coverage width (continuous); you buy cameras (integers).
+3. **A 99% false-alarm reduction still leaves 0.905% precision** at 2 true events/year. The base
+   rate, not the detector, is the constraint — so analytics belong in retrospective search, where a
+   false positive costs one second to dismiss, not in low-base-rate live alarms.
+
+### A correction made mid-module
+
+Lesson 01's exercise E1.1(c) attributed a soft face beside a sharp plate to depth of field.
+Checking it with real numbers showed the claim holds **only for long lenses**: at 12 mm both planes
+are in focus (22.1–46.5 ft at f/1.4); at 50 mm focused on a plate at 40 ft the DOF is **2.2 ft**.
+The condition is now stated explicitly in the solution. **Compute before asserting, even when the
+claim is textbook** — this is the same class of error as the module 01 "4 missing files" count.
+
+### Two gaps in `psec`, deliberately not filled
+
+Module 03 needed **depth of field** (hyperfocal, near/far limits) and **motion blur**
+(`smear_px = speed × exposure × PPF`) routinely. Neither exists in `psec`. Both are geometric,
+testable against hand calculations, and belong in `psec.optics`.
+
+**They were not added.** This repo's architecture is that `32_Engineering_Math/` derives what
+`28_Calculators/` implements, so adding them properly means writing derivations in module 32 first
+— reopening a module marked complete. Instead the arithmetic is shown in full in module 03 lessons
+01, 02, and 03 so it can be hand-checked, with an explicit note in lesson 02 explaining why it is
+not in the calculator. Logged as `COURSE_PROGRESS.md` known issue 8 and `HANDOFF.md` debt 6.
+
+### The capstone
+
+**Cedar Junction park-and-ride** — chosen, per the module 01 and 32 pattern, to break its own
+module's instincts. Three traps: identify-at-the-incident (128 cameras, still fails on occlusion
+and pose); light-is-always-binding (**29 of 34 incidents happened in daylight**, so the lighting
+argument survives only in its precise form — levels 1–3 are enclosed and measure 2.5 lux *at
+noon*); and where the chokepoint is (the **pedestrian cores**, not the vehicle portal, because
+offenders arrive on foot).
+
+The timeliness analysis governs the design: even with **instant detection and zero assessment**, a
+720 s response exceeds the 130 s task time by **590 s**, so no detection point on the site can be
+timely. The answer is 42 cameras with identify at the cores — and a top recommendation (access
+control on the uncontrolled pedestrian street gate) that **shrinks the video scope**, which is the
+professional act `AI_CONTEXT.md` names.
+
+Its conclusion is deliberately distinct from module 01's Ashford Library capstone, which also finds
+detection cannot be timely but lands on **delay**; the garage lands on **deterrence and access
+control**, because delay is not available at a parked car.
+
+### Verification
+
+```
+python3 28_Calculators/tests/test_psec.py                    # 68 tests → OK (unchanged)
+python3 28_Calculators/demo.py                               # clean
+python3 16_Automation/data_model/validate.py ... CD          # 25 err / 5 warn / 4 info
+repo-wide link check                                         # 1 broken (module 30, known)
+26_Flashcards/03_video_surveillance.csv                      # 114 cards, 0 malformed
+```
+
+**No code was changed this session**, so the test count remains 68.
+
+The link check caught **three relative-depth errors** in new files before merge — the recurring
+authoring bug flagged in the Session 5 handoff. Two were `_solutions/` files linking to a sibling
+lesson without `../`; one was an answer key in `25_Quizzes/_answer_keys/` needing `../../`. Running
+the check before committing remains non-negotiable.
+
+### Commit record
+
+| Commit | Content |
+|---|---|
+| `3de3221` | Module 03 overview and lesson 01 (imaging chain) |
+| `9b6d691` | Lessons 02–03 (optics, sensors and low light) |
+| `7ff9177` | Lessons 04–05 (DORI in practice, form factors) |
+| `b6e27c5` | Lessons 06–08 (bandwidth, storage, VMS architecture) |
+| `6048774` | Lessons 09–11 (placement, retail case study, analytics) |
+| `1de601c` | Capstone, Quiz 03 + key, flashcard deck |
