@@ -150,9 +150,54 @@ Both fixed in the same branch, both with new tests. **Test count 66 → 68.**
 2. **`pps.compare_interventions` docstring said "three levers" and returns four.** Fixed, with the
    module-32 cross-reference added.
 
-## Phase 7 — Video surveillance ⬜
+## Phase 7 — Video surveillance ✅ COMPLETE
 
-11 lessons through the imaging chain, plus the retail case study and Projects 2 and 4.
+11 lessons through the imaging chain, plus the retail case study. **~76k words — the largest
+module in the academy.** Projects 2 and 4 deferred to Phase 7a; they are now unblocked.
+
+**The governing decision:** module 32 derives the math, module 03 applies it. Every lesson that
+needs a formula links to module 32 and states the result rather than re-deriving it. The overview
+opens with a division-of-labour table making this explicit. Without it this module would have
+duplicated ~40% of module 32.
+
+- [x] `03_Video_Surveillance/` module overview, with the division-of-labour table
+- [x] 01 The imaging chain — the module spine, eight links, prevents vs documents
+- [x] 02 Optics: focal length, FOV, aperture, depth of field
+- [x] 03 Sensors, exposure, WDR, low light — the exposure budget in stops
+- [x] 04 DORI and pixel density in practice *(filename pinned by `psec/optics.py:63`)*
+- [x] 05 Camera form factors and tradeoffs
+- [x] 06 Compression, bitrate, and bandwidth
+- [x] 07 Storage, retention, and redundancy
+- [x] 08 VMS architecture
+- [x] 09 Camera placement engineering — the module's governing rule
+- [x] 10 Retail case study (Brannon's Home & Garden)
+- [x] 11 Analytics and health monitoring
+- [x] `_solutions/` for all 11 lessons, written in the same commits as the lessons
+- [x] Cedar Junction park-and-ride capstone + reference solution
+- [x] Quiz 03 (30 Q, 54 pts) + isolated answer key
+- [x] Flashcard deck (114 cards, validated)
+- [x] Repo-wide link check — module 03 clean (25 files)
+
+**Three results worth recording, because each inverted the expected answer:**
+
+1. **Resolution cannot fix motion blur, and the proof is an invariance.** Smear relative to facial
+   detail is unchanged by pixel density — 0.704 at both 12 ft and 22 ft — because both scale with
+   PPF and the ratio cancels. This underpins the whole "more megapixels" argument.
+2. **Camera count is a ceiling function.** An 8 MP upgrade needs the *same* camera count as 4 MP on
+   a 90 ft elevation, so it costs a stop of light for nothing. Compute the count before accepting a
+   resolution upgrade as a saving.
+3. **Even a 99% false-alarm reduction leaves 0.905% precision** when true events are twice a year.
+   The base rate, not the detector, is the constraint — which is why analytics belong in
+   retrospective search rather than low-base-rate live alarms.
+
+**Two gaps in `psec` surfaced and were deliberately not filled:** depth of field and motion blur.
+Both belong in `psec.optics`, and adding them properly means deriving them in module 32 first. See
+`COURSE_PROGRESS.md` known issue 8.
+
+## Phase 7a — Video surveillance labs ⬜
+
+- [ ] Project 2 — small office camera design (brief + reference solution)
+- [ ] Project 4 — retail surveillance design + senior critique
 
 ## Phase 8 — Access control ⬜
 
