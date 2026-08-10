@@ -36,7 +36,14 @@ because that is the argument you will actually have to win.
 
 - **Cause: link [2], the lens** — insufficient depth of field. The plate plane and the face plane
   are at different distances, and only one is inside the acceptable focus zone. A wide aperture
-  chosen for low light narrows DOF, so this frequently appears only at night.
+  chosen for low light narrows DOF further, so this often worsens at night.
+- **The condition matters, so state it:** this diagnosis holds for the **long** lens that plate
+  capture actually requires, not for any lens. A 12 mm lens focused at 30 ft holds roughly 22 to
+  46 ft in focus even wide open — both planes are comfortably inside it. A **50 mm** lens focused
+  on a plate at 40 ft holds **38.9 to 41.1 ft — a depth of 2.2 ft.** A face 7 ft behind the plate
+  is far outside that. Depth of field collapses as focal length rises, which is precisely why this
+  failure is characteristic of plate cameras and not of overview cameras. The arithmetic is worked
+  in [lesson 02](../02_optics_and_lenses.md).
 - **Commonly blamed: link [3]** — "resolution isn't high enough for faces."
 - **Why that is wrong:** the plate proves resolution is sufficient at that distance. The face is
   not under-resolved, it is **out of focus**, and sharpening will not fix it. Fix at link [2]
